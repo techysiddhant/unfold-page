@@ -1,0 +1,25 @@
+{
+    "name": "untold-story",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "dev": "nodemon server.js",
+        "start": "node server.js",
+        "build": "tailwindcss -i ./input.css -o ./public/css/main.css",
+        "watch": "tailwindcss -i ./input.css -o ./public/css/main.css --watch"
+    },
+    "author": "Siddhant Jain",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.0.2",
+        "ejs": "^3.1.8",
+        "express": "^4.18.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^6.5.4"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.19",
+        "tailwindcss": "^3.1.8"
+    }
+}
