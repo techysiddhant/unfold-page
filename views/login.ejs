@@ -1,11 +1,30 @@
 <%- include("./partials/header.ejs") %>
-<div class="login">
-    <div class="container">
-        <form action="">
-            
-        </form>
-    </div>
-</div>
+<title>Untold Story | Login</title>
+</head>
+<body>
+  <div class="min-h-screen bg-gray-100 text-gray-800 antialiased px-4 py-6 flex flex-col justify-center sm:py-12">
+    <div class="relative py-2 sm:w-2/5 mx-auto text-center ">
+      <span class="block text-2xl sm:text-3xl font-semibold mb-1">Welcome to Untold Story</span>
+      <span class="block text-xl">Login to your Account</span>
+      <div class="relative mt-4 bg-white shadow-md">
+        <div class="h-2 bg-blue-500 rounded-t-md"></div>
+        <form action="" class="py-6 px-8 text-left">
+          <label for="" class="block font-semibold">Email</label>
+          <input type="text" name="email" placeholder="Email" class="border w-full h-5 hover:outline-none focus:outline-none focus:ring-1 focus:ring-blue-500 px-3 py-4 mt-2 rounded-sm">
+          <span class="block error email text-xs text-red-700 font-semibold my-1">Invalid Email*</span>
+          <label for="" class="block font-semibold">Password</label>
+          <input type="password" name="paassword" placeholder="password" class="border w-full h-5 hover:outline-none focus:outline-none focus:ring-1 focus:ring-blue-500 px-3 py-4 mt-2 rounded-sm">
+          <span class="block error password text-xs text-red-700 font-semibold my-1">Invalid password*</span>
+          <div class="">
+            <button class="block bg-blue-500 text-white px-4 py-2 w-full rounded-md my-4 font-semibold text-xl">Log In</button>
+            <p class="text-center text-sm font-normal">Don't have account? <a href="#" class="hover:underline text-blue-500 font-semibold">Signup</a></p>
 
+          </div>
+        </form>
+      </div>
+      
+      </div>
+      </div>
+  
 
 <%- include("./partials/footer.ejs") %>
