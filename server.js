@@ -12,6 +12,7 @@ dotenv.config({ path: './config/config.env' });
 connectDB();
 
 const app = express();
+app.set('view engine', 'ejs')
 
 // setting json data
 app.use(express.json())
@@ -20,10 +21,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 
 // add public folder
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static('public'));
 
 // setup the ejs engine
-app.set('view engine', 'ejs')
 
 
 app.use(router);

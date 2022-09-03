@@ -4,10 +4,9 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-        "dev": "nodemon server.js",
+        "dev": "npm run tailwind:css && nodemon server.js",
         "start": "node server.js",
-        "build": "tailwindcss -i ./input.css -o ./public/css/main.css",
-        "watch": "tailwindcss -i ./input.css -o ./public/css/main.css --watch"
+        "tailwind:css": "tailwindcss ./input.css -o ./public/css/main.css"
     },
     "author": "Siddhant Jain",
     "license": "ISC",
@@ -15,11 +14,14 @@
         "dotenv": "^16.0.2",
         "ejs": "^3.1.8",
         "express": "^4.18.1",
+        "express-validator": "^6.14.2",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.5.4"
     },
     "devDependencies": {
+        "autoprefixer": "^10.4.8",
         "nodemon": "^2.0.19",
+        "postcss": "^8.4.16",
         "tailwindcss": "^3.1.8"
     }
 }
