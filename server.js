@@ -17,13 +17,14 @@ const app = express();
 app.use(express.json())
 
 //setting body parser
+app.set("views",path.join(__dirname,"views"));
+app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }));
-
 // add public folder
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // setup the ejs engine
-app.set('view engine', 'ejs')
+
 
 
 app.use(router);

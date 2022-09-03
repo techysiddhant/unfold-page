@@ -6,8 +6,7 @@
     "scripts": {
         "dev": "nodemon server.js",
         "start": "node server.js",
-        "build": "tailwindcss -i ./input.css -o ./public/css/main.css",
-        "watch": "tailwindcss -i ./input.css -o ./public/css/main.css --watch"
+        "tailwind:css":"postcss public/css/input.css -o public/css/main.css"
     },
     "author": "Siddhant Jain",
     "license": "ISC",
@@ -19,7 +18,9 @@
         "mongoose": "^6.5.4"
     },
     "devDependencies": {
+        "autoprefixer": "^10.4.8",
         "nodemon": "^2.0.19",
+        "postcss-cli": "^10.0.0",
         "tailwindcss": "^3.1.8"
     }
 }
