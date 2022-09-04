@@ -5,19 +5,21 @@ const path = require('path');
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
 const router = require('./router/authRouter');
+const cookieparser = require('cookie-parser');
 //config file
 dotenv.config({ path: './config/config.env' });
 
 //connect DB
 connectDB();
 
+
 const app = express();
 
 // setting json data
 app.use(express.json())
-
+app.use(cookieparser());
 //setting body parser
-app.set("views",path.join(__dirname,"views"));
+app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }));
 // add public folder
