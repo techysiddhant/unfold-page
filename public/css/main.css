@@ -508,6 +508,52 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+.btn {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: block;
+  width: 100%;
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+}
+.input-box {
+  margin-top: 0.5rem;
+  height: 1.25rem;
+  width: 100%;
+  border-radius: 0.125rem;
+  border-width: 1px;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.input-box:hover {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.input-box:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+}
 .fixed {
   position: fixed;
 }
@@ -786,18 +832,16 @@ video {
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
-
-/* .input-box {
-    @apply border w-full h-5 hover: outline-none focus: outline-none focus: ring-1 focus: ring-blue-500 px-3 py-4 mt-2 rounded-sm;
-}
-
 .error-msg {
-    @apply text-xs text-red-700 font-semibold my-1 block;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
 }
-
-.btn {
-    @apply block bg-blue-500 text-white px-4 py-2 w-full rounded-md my-4 font-semibold text-xl hover: bg-blue-600;
-} */
 
 .close {
     transform: translateX(100%);
