@@ -842,7 +842,6 @@ video {
   --tw-text-opacity: 1;
   color: rgb(185 28 28 / var(--tw-text-opacity));
 }
-
 .close {
     transform: translateX(100%);
     transition: all 0.4s ease-out;
