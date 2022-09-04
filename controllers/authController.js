@@ -63,3 +63,6 @@ module.exports.signup_post = async(req, res, next) => {
 
     // res.send('Sign Up Request');
 }
+module.exports.home_get = (req, res) => {
+    res.render('home');
+}
