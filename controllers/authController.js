@@ -34,39 +34,22 @@ module.exports.signup_get = (req, res) => {
 
 
 module.exports.signup_post = async(req, res, next) => {
-
     const { firstname, lastname, username, email, password, about } = req.body;
     try {
-
-        //validatio result
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(422).json({
                 errors: errors.array()
             })
         }
-        // const doesExist = await User.findOne({ email: req.body.email });
-        // const errmsg = 'Email is already exist';
-        // if (doesExist) {
-        //     res.render('signup', { errmsg });
-        // }
-        //check duplicate email
-
-
-
+        next();
         const user = await User.create({ firstname, lastname, username, email, password, about });
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(201).json({ user: user._id, success: 'Ok' });
     } catch (err) {
-        // const errors = handleErrors(err);
-        // res.status(400).json({ errors });
         console.log(err);
     }
-
     console.log(req.body);
-    next();
-
-    // res.send('Sign Up Request');
 
 }
