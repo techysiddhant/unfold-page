@@ -12,7 +12,7 @@ router.post('/signup', authController.signup_post);
 
 router.post('/signup', validateUser, authController.signup_post);
 
-router.get('/home', authController.home_get);
+router.get('/', authController.home_get);
 
 
 module.exports = router;
