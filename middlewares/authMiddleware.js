@@ -19,20 +19,3 @@ exports.validateUser = [
     check('password').trim().isLength({ min: 6 }).withMessage('Password Must be 6 character long!'),
     check('about').isLength({ min: 10 }).withMessage('About must be min 10 charcater long!')
 ]
-
-// exports.uservalidation = (req, res, next) => {
-
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//         return res.status(422).json({
-//             errors: errors.array()
-//         })
-//     }
-//     next();
-//     console.log(req.body.email);
-
-//     res.status(202).json({
-//         success: 'Ok'
-//     });
-//     console.log(req.body);
-// }
