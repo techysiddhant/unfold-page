@@ -87,36 +87,8 @@
         </footer>
 
 
-        <script>
-            const openBtn = document.getElementById('open-btn');
-            const closeBtn = document.getElementById('close-btn');
-            const header = document.getElementById('header');
-            const navBar = document.getElementById('navbar');
-            const body = document.getElementById('body');
-            openBtn.addEventListener('click', () => {
-                navBar.classList.toggle('close');
-                navBar.classList.toggle('open');
-                body.classList.remove('overflowopen');
-                body.classList.add('overflowhidden');
-            });
-            closeBtn.addEventListener('click', () => {
-                navBar.classList.toggle('open');
-                navBar.classList.toggle('close');
-                body.classList.remove('overflowhidden');
-                body.classList.toggle('overflowopen');
 
-            });
-            window.addEventListener('scroll', () => {
-                console.log(window.pageYOffset);
-                if (window.pageYOffset > 60) {
-                    header.classList.remove('h-20');
-                    header.classList.add('h-16');
-                } else if (window.pageYOffset < 60) {
-                    header.classList.remove('h-16');
-                    header.classList.add('h-20');
-                }
-            })
-        </script>
+
 
 
         <%- include("./partials/footer.ejs") %>
