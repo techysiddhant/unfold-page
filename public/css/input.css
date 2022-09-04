@@ -10,3 +10,23 @@
 .btn{
     @apply block bg-blue-500 text-white px-4 py-2 w-full rounded-md my-4 font-semibold text-xl hover:bg-blue-600;
 }
+.close {
+    transform: translateX(100%);
+    transition: all 0.4s ease-out;
+    opacity: 0;
+}
+
+.open {
+    transform: translateX(0);
+    transition: all 0.4s ease-in;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.overflowopen {
+    overflow: auto;
+}
+
+.overflowhidden {
+    overflow: hidden;
+}

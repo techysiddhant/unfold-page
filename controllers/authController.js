@@ -11,3 +11,6 @@ module.exports.signup_get = (req, res) => {
 module.exports.signup_post = (req, res) => {
     res.send('Sign Up Request');
 }
+module.exports.home_get = (req, res) => {
+    res.render('home');
+}
