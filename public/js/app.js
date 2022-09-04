@@ -108,18 +108,23 @@ const closeBtn = document.getElementById('close-btn');
 const header = document.getElementById('header');
 const navBar = document.getElementById('navbar');
 const body = document.getElementById('body');
+const footer = document.getElementById('footer');
 openBtn.addEventListener('click', () => {
 
     navBar.classList.toggle('close');
     navBar.classList.toggle('open');
     body.classList.remove('overflowopen');
     body.classList.add('overflowhidden');
+    footer.classList.remove('fixed');
+    footer.classList.add('hidden');
 });
 closeBtn.addEventListener('click', () => {
     navBar.classList.toggle('open');
     navBar.classList.toggle('close');
     body.classList.remove('overflowhidden');
     body.classList.toggle('overflowopen');
+    footer.classList.remove('hidden');
+    footer.classList.add('fixed');
 
 });
 window.addEventListener('scroll', () => {
