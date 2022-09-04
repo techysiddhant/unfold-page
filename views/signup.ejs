@@ -1,40 +1,41 @@
 <%- include("./partials/header.ejs") %>
-<title>Untold Story | Sign Up</title>
-</head>
-<body>
-  <div class="min-h-screen bg-gray-100 text-gray-800 antialiased px-4 py-6 flex flex-col justify-center sm:py-12">
-    <div class="relative py-2 sm:w-2/5 mx-auto text-center ">
-      <span class="block text-2xl sm:text-3xl font-semibold mb-1">Welcome to Untold Story</span>
-      <span class="block text-xl">Create a New Account</span>
-      <div class="relative mt-4 bg-white shadow-md">
-        <div class="h-2 bg-blue-500 rounded-t-md"></div>
-        <form action="" class="py-6 px-8 text-left">
-          <label for="" class="block font-semibold">First Name</label>
-          <input type="text" name="firstname" placeholder="First name" class="input-box">
-          <span class="error-msg error firstname ">Invalid name*</span>
-          <label for="" class="block font-semibold">Last Name</label>
-          <input type="text" name="lastname" placeholder="Last name" class="input-box">
-          <span class="error-msg error lastname">Invalid name*</span>
-          <label for="" class="block font-semibold">Username</label>
-          <input type="text" name="username" placeholder="username" class="input-box">
-          <span class="error-msg error username">Invalid username*</span>
-          <label for="" class="block font-semibold">Email</label>
-          <input type="text" name="email" placeholder="Email" class="input-box">
-          <span class="error-msg error email">Invalid Email*</span>
-          <label for="" class="block font-semibold">Password</label>
-          <input type="password" name="paassword" placeholder="password" class="input-box">
-          <span class="error-msg error password">Invalid password*</span>
-          <label for="" class="block font-semibold">About</label>
-          <input type="text" name="about" placeholder="About" class="input-box">
-          <span class="error-msg error about">Invalid About*</span>
-          <div class="">
-            <button class="btn">Sign Up</button>
-            <p class="text-center text-sm font-normal">Already have account? <a href="#" class="hover:underline text-blue-500 font-semibold">Login</a></p>
+    <title>Untold Story | Sign Up</title>
+    </head>
 
-          </div>
-        </form>
-      </div>
-      
-      </div>
-      </div>
-<%- include("./partials/footer.ejs") %>
+    <body>
+        <div class="min-h-screen bg-gray-100 text-gray-800 antialiased px-4 py-6 flex flex-col justify-center sm:py-12">
+            <div class="relative py-2 sm:w-2/5 mx-auto text-center ">
+                <span class="block text-2xl sm:text-3xl font-semibold mb-1">Welcome to Untold Story</span>
+                <span class="block text-xl">Create a New Account</span>
+                <div class="relative mt-4 bg-white shadow-md">
+                    <div class="h-2 bg-blue-500 rounded-t-md"></div>
+                    <form action="" class="signup py-6 px-8 text-left" id="signup">
+                        <label for="" class="block font-semibold">First Name</label>
+                        <input type="text" name="firstname" placeholder="First name" class="input-box">
+                        <span class="error-msg error firstname "></span>
+                        <label for="" class="block font-semibold">Last Name</label>
+                        <input type="text" name="lastname" placeholder="Last name" class="input-box">
+                        <span class="error-msg error lastname"></span>
+                        <label for="" class="block font-semibold">Username</label>
+                        <input type="text" name="username" placeholder="username" class="input-box">
+                        <span class="error-msg error username"></span>
+                        <label for="" class="block font-semibold">Email</label>
+                        <input type="text" name="email" placeholder="Email" class="input-box">
+                        <span class="error-msg error email"></span>
+                        <label for="" class="block font-semibold">Password</label>
+                        <input type="password" name="password" placeholder="password" class="input-box">
+                        <span class="error-msg error password"></span>
+                        <label for="" class="block font-semibold">About</label>
+                        <input type="text" name="about" placeholder="About" class="input-box">
+                        <span class="error-msg error about"></span>
+                        <div class="">
+                            <button type="submit" class="btn">Sign Up</button>
+                            <p class="text-center text-sm font-normal">Already have account? <a href="#" class="hover:underline text-blue-500 font-semibold">Login</a></p>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <%- include("./partials/footer.ejs") %>
