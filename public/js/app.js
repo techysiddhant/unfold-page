@@ -33,71 +33,103 @@ const aboutError = document.querySelector('.error.about');
 //     }
 // });
 
+if (signup) {
+    signup.addEventListener('submit', async(e) => {
+        e.preventDefault();
+        const firstname = signup.firstname.value;
+        const lastname = signup.lastname.value;
+        const username = signup.username.value;
+        const about = signup.about.value;
+        const email = signup.email.value;
+        const password = signup.password.value;
+        firstnameError.textContent = '';
+        lastnameError.textContent = '';
+        usernameError.textContent = '';
+        aboutError.textContent = '';
+        emailError.textContent = '';
+        passwordError.textContent = '';
+        try {
+            const res = await fetch('/signup', {
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify({
+                    firstname: firstname,
+                    lastname: lastname,
+                    username: username,
+                    about: about,
+                    email: email,
+                    password: password,
+                })
+            });
+            const data = await res.json();
+            // const err = data.errors[0].msg;
+            // console.log(data.errors.email);
+            // if (data.errors.email) {
+            //     emailError.textContent = data.errors.email;
+            //     return;
+            // }
+            if (data.success !== 'Ok') {
 
-signup.addEventListener('submit', async(e) => {
-    e.preventDefault();
-    const firstname = signup.firstname.value;
-    const lastname = signup.lastname.value;
-    const username = signup.username.value;
-    const about = signup.about.value;
-    const email = signup.email.value;
-    const password = signup.password.value;
-    firstnameError.textContent = '';
-    lastnameError.textContent = '';
-    usernameError.textContent = '';
-    aboutError.textContent = '';
-    emailError.textContent = '';
-    passwordError.textContent = '';
-    try {
-        const res = await fetch('/signup', {
-            headers: {
-                'Content-type': 'application/json'
-            },
-            method: 'POST',
-            body: JSON.stringify({
-                firstname: firstname,
-                lastname: lastname,
-                username: username,
-                about: about,
-                email: email,
-                password: password,
-            })
-        });
-        const data = await res.json();
-        // const err = data.errors[0].msg;
-        // console.log(data.errors.email);
-        // if (data.errors.email) {
-        //     emailError.textContent = data.errors.email;
-        //     return;
-        // }
-        if (data.success !== 'Ok') {
 
-
-            for (let i = 0; i < data.errors.length; i++) {
-                if (data.errors[i].param === 'firstname') {
-                    firstnameError.textContent = data.errors[i].msg;
-                } else if (data.errors[i].param === 'lastname') {
-                    lastnameError.textContent = data.errors[i].msg;
-                } else if (data.errors[i].param === 'username') {
-                    usernameError.textContent = data.errors[i].msg;
-                } else if (data.errors[i].param === 'email') {
-                    emailError.textContent = data.errors[i].msg;
-                } else if (data.errors[i].param === 'password') {
-                    passwordError.textContent = data.errors[i].msg;
-                } else if (data.errors[i].param === 'about') {
-                    aboutError.textContent = data.errors[i].msg;
+                for (let i = 0; i < data.errors.length; i++) {
+                    if (data.errors[i].param === 'firstname') {
+                        firstnameError.textContent = data.errors[i].msg;
+                    } else if (data.errors[i].param === 'lastname') {
+                        lastnameError.textContent = data.errors[i].msg;
+                    } else if (data.errors[i].param === 'username') {
+                        usernameError.textContent = data.errors[i].msg;
+                    } else if (data.errors[i].param === 'email') {
+                        emailError.textContent = data.errors[i].msg;
+                    } else if (data.errors[i].param === 'password') {
+                        passwordError.textContent = data.errors[i].msg;
+                    } else if (data.errors[i].param === 'about') {
+                        aboutError.textContent = data.errors[i].msg;
+                    }
                 }
             }
+            // console.log(err);
+
+            // console.log(data);
+            if (data.user) {
+
+                location.assign('/login');
+            }
+        } catch (error) {
+            console.log(error);
+
         }
-        // console.log(err);
+    });
+}
+//Home Page start
+const openBtn = document.getElementById('open-btn');
+const closeBtn = document.getElementById('close-btn');
+const header = document.getElementById('header');
+const navBar = document.getElementById('navbar');
+const body = document.getElementById('body');
+openBtn.addEventListener('click', () => {
 
-        // console.log(data);
-        if (data.user) {
-
-            location.assign('/login');
-        }
-    } catch (error) {
-        console.log(error);
-
-    }
+    navBar.classList.toggle('close');
+    navBar.classList.toggle('open');
+    body.classList.remove('overflowopen');
+    body.classList.add('overflowhidden');
 });
+closeBtn.addEventListener('click', () => {
+    navBar.classList.toggle('open');
+    navBar.classList.toggle('close');
+    body.classList.remove('overflowhidden');
+    body.classList.toggle('overflowopen');
+
+});
+window.addEventListener('scroll', () => {
+        console.log(window.pageYOffset);
+        if (window.pageYOffset > 60) {
+            header.classList.remove('h-20');
+            header.classList.add('h-16');
+        } else if (window.pageYOffset < 60) {
+            header.classList.remove('h-16');
+            header.classList.add('h-20');
+        }
+    })
+    //home page end
