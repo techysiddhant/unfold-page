@@ -5,7 +5,11 @@
     @apply text-xs text-red-700 font-semibold my-1 block;
 }
 
-
+@layer base{
+    html{
+        @apply scroll-smooth;
+    }
+}
 
 @layer components {
     .btn {
@@ -17,13 +21,13 @@
 }
 .close {
     transform: translateX(100%);
-    transition: all 0.2s ease-out;
+    transition: all 0.5s ease-out;
     opacity: 0;
 }
 
 .open {
     transform: translateX(0);
-    transition: all .5s ease-in;
+    transition: all .3s ease-in;
     opacity: 1;
     overflow: hidden;
 }
