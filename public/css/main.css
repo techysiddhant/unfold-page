@@ -367,6 +367,9 @@ video {
   max-width: 100%;
   height: auto;
 }
+    html {
+  scroll-behavior: smooth;
+}
 
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
@@ -609,6 +612,9 @@ video {
 .flex {
   display: flex;
 }
+.hidden {
+  display: none;
+}
 .h-20 {
   height: 5rem;
 }
@@ -629,6 +635,9 @@ video {
 }
 .h-14 {
   height: 3.5rem;
+}
+.h-16 {
+  height: 4rem;
 }
 .h-2 {
   height: 0.5rem;
@@ -830,13 +839,13 @@ video {
 }
 .close {
     transform: translateX(100%);
-    transition: all 0.2s ease-out;
+    transition: all 0.5s ease-out;
     opacity: 0;
 }
 
 .open {
     transform: translateX(0);
-    transition: all .5s ease-in;
+    transition: all .3s ease-in;
     opacity: 1;
     overflow: hidden;
 }
