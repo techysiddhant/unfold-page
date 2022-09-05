@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const { validationResult } = require('express-validator');
+// const { validationResult } = require('express-validator');
 const handleErrors = (err) => {
         console.log(err.message, err.code);
         let errors = { email: '', password: '' };
@@ -21,6 +21,7 @@ module.exports.home_get = (req, res) => {
     res.render('home');
 }
 module.exports.login_get = (req, res) => {
+
     res.render('login');
 }
 
@@ -33,16 +34,16 @@ module.exports.signup_get = (req, res) => {
 
 
 
-module.exports.signup_post = async(req, res, next) => {
-    const { firstname, lastname, username, email, password, about } = req.body;
+module.exports.signup_post = async(req, res) => {
     try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(422).json({
-                errors: errors.array()
-            })
-        }
-        next();
+        // const errors = validationResult(req);
+        // if (!errors.isEmpty()) {
+        //     console.log('inside');
+        //     res.status(422).json({ errors: errors.array() });
+        //     return;
+        // }
+        // next();
+        const { firstname, lastname, username, email, password, about } = req.body;
         const user = await User.create({ firstname, lastname, username, email, password, about });
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
