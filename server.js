@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
 const router = require('./router/authRouter');
 const cookieparser = require('cookie-parser');
+const { requireAuth, checkUser } = require('./middlewares/authUserVerifyMiddleware');
 //config file
 dotenv.config({ path: './config/config.env' });
 
@@ -28,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // setup the ejs engine
 
 
-
+app.get('*', checkUser);
 app.use(router);
 
 const PORT = process.env.PORT || 5000
