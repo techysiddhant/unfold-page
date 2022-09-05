@@ -12,20 +12,61 @@
                     <form action="" class="py-6 px-8 text-left" id="login-form">
                         <label for="" class="block font-semibold">Email</label>
                         <input type="text" name="email" placeholder="Email" class="input-box">
-                        <span class="error-msg error email">Invalid Email*</span>
+                        <span class="error-msg error email"></span>
                         <label for="" class="block font-semibold">Password</label>
                         <input type="password" name="password" placeholder="password" class="input-box">
-                        <span class="error-msg error password">Invalid password*</span>
+                        <span class="error-msg error password"></span>
+
                         <div class="">
+                            <p class="text-right mt-2 text-sm font-normal hover:text-red-700 hover:underline"><a href="#">Forgot password?</a></p>
+
                             <button type="submit" class="btn">Log In</button>
-                            <p class="text-center text-sm font-normal">Don't have account? <a href="#" class="hover:underline text-blue-500 font-semibold">Signup</a></p>
+                            <p class="text-center text-sm font-normal">Don't have account? <a href="/signup" class="hover:underline text-blue-500 font-semibold">Signup</a></p>
 
                         </div>
+
                     </form>
+
                 </div>
 
             </div>
         </div>
+        <script>
+            const login = document.getElementById('login-form');
+            const emailError = document.querySelector('.error.email');
+            const passwordError = document.querySelector('.error.password');
+            login.addEventListener('submit', async(e) => {
+                e.preventDefault();
+                const email = login.email.value;
+                const password = login.password.value;
+                emailError.textContent = '';
+                passwordError.textContent = '';
+                try {
+                    const res = await fetch('/login', {
+                        headers: {
+                            'Content-type': 'application/json'
+                        },
+                        method: 'POST',
+                        body: JSON.stringify({
+                            email: email,
+                            password: password
+                        })
+                    });
+                    const data = await res.json();
+                    console.log(data.errors);
+                    if (data.errors) {
+                        emailError.textContent = data.errors.email;
+                        passwordError.textContent = data.errors.password;
+                    }
+                    if (data.user) {
+                        location.assign('/');
+                    }
 
+                } catch (error) {
+                    console.log(error);
+
+                }
+            });
+        </script>
 
         <%- include("./partials/footer.ejs") %>
