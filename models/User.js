@@ -1,34 +1,48 @@
 const mongoose = require('mongoose');
-const userSchema = new mongoose.Schema({
-    firstname: {
-        type: String,
-        required: true,
-    },
-    lastname: {
-        type: String,
-        required: true,
-    },
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
-    },
-    password: {
-        type: String,
-        required: true,
-        minlength: 6,
-    },
-    about: {
-        type: String,
-        required: true,
-    }
-})
+const bcrypt = require('bcrypt');
 
+const userSchema = new mongoose.Schema({
+        firstname: {
+            type: String,
+            required: true,
+        },
+        lastname: {
+            type: String,
+            required: true,
+        },
+        username: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+        },
+        password: {
+            type: String,
+            required: true,
+            minlength: 6,
+        },
+        about: {
+            type: String,
+            required: true,
+        }
+    })
+    // fire a function after doc saved to db
+    // userSchema.post('save', function(doc, next) {
+    //     console.log('New user was created & saved', doc);
+    //     next();
+    // })
+
+// fire a function before saved to db;
+userSchema.pre('save', async function(next) {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt)
+    console.log('user is about to be created & saved', this);
+    next();
+});
 const User = mongoose.model('user', userSchema);
 module.exports = User;
