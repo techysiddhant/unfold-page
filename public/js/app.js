@@ -1,13 +1,13 @@
 // For Login form
 const login = document.getElementById('login-form');
-const signup = document.querySelector('.signup');
+// const signup = document.querySelector('.signup');
 //Error Message Box
-const firstnameError = document.querySelector('.error.firstname');
-const lastnameError = document.querySelector('.error.lastname');
-const usernameError = document.querySelector('.error.username');
-const emailError = document.querySelector('.error.email');
-const passwordError = document.querySelector('.error.password');
-const aboutError = document.querySelector('.error.about');
+// const firstnameError = document.querySelector('.error.firstname');
+// const lastnameError = document.querySelector('.error.lastname');
+// const usernameError = document.querySelector('.error.username');
+// const emailError = document.querySelector('.error.email');
+// const passwordError = document.querySelector('.error.password');
+// const aboutError = document.querySelector('.error.about');
 // login.addEventListener('submit', async(e) => {
 //     e.preventDefault();
 //     const email = login.email.value;
@@ -70,6 +70,7 @@ if (signup) {
             //     emailError.textContent = data.errors.email;
             //     return;
             // }
+            console.log(data.success);
             if (data.success !== 'Ok') {
 
 
@@ -92,6 +93,7 @@ if (signup) {
             // console.log(err);
 
             // console.log(data);
+            console.log(data.user);
             if (data.user) {
 
                 location.assign('/login');
@@ -103,38 +105,49 @@ if (signup) {
     });
 }
 //Home Page start
-const openBtn = document.getElementById('open-btn');
-const closeBtn = document.getElementById('close-btn');
-const header = document.getElementById('header');
-const navBar = document.getElementById('navbar');
-const body = document.getElementById('body');
-const footer = document.getElementById('footer');
-openBtn.addEventListener('click', () => {
+// const openBtn = document.getElementById('open-btn');
+// const closeBtn = document.getElementById('close-btn');
+// const header = document.getElementById('header');
+// const navBar = document.getElementById('navbar');
+// const body = document.getElementById('body');
+// const footer = document.getElementById('footer');
+// if (openBtn) {
 
-    navBar.classList.toggle('close');
-    navBar.classList.toggle('open');
-    body.classList.remove('overflowopen');
-    body.classList.add('overflowhidden');
-    footer.classList.remove('fixed');
-    footer.classList.add('hidden');
-});
-closeBtn.addEventListener('click', () => {
-    navBar.classList.toggle('open');
-    navBar.classList.toggle('close');
-    body.classList.remove('overflowhidden');
-    body.classList.toggle('overflowopen');
-    footer.classList.remove('hidden');
-    footer.classList.add('fixed');
 
-});
-window.addEventListener('scroll', () => {
-        console.log(window.pageYOffset);
-        if (window.pageYOffset > 60) {
-            header.classList.remove('h-20');
-            header.classList.add('h-16');
-        } else if (window.pageYOffset < 60) {
-            header.classList.remove('h-16');
-            header.classList.add('h-20');
-        }
-    })
-    //home page end
+//     openBtn.addEventListener('click', () => {
+
+//         navBar.classList.toggle('close');
+//         navBar.classList.toggle('open');
+//         body.classList.remove('overflowopen');
+//         body.classList.add('overflowhidden');
+//         footer.classList.remove('fixed');
+//         footer.classList.add('hidden');
+//     });
+// }
+// if (closeBtn) {
+
+
+//     closeBtn.addEventListener('click', () => {
+//         navBar.classList.toggle('open');
+//         navBar.classList.toggle('close');
+//         body.classList.remove('overflowhidden');
+//         body.classList.toggle('overflowopen');
+//         footer.classList.remove('hidden');
+//         footer.classList.add('fixed');
+//     });
+// }
+// window.addEventListener('scroll', () => {
+// console.log(window.pageYOffset);
+//         if (header) {
+
+
+//             if (window.pageYOffset > 60) {
+//                 header.classList.remove('h-20');
+//                 header.classList.add('h-16');
+//             } else if (window.pageYOffset < 60) {
+//                 header.classList.remove('h-16');
+//                 header.classList.add('h-20');
+//             }
+//         }
+//     })
+//home page end
