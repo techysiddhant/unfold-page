@@ -18,7 +18,7 @@ exports.validateUser = [
             }
         }),
         check('password').trim().isLength({ min: 6 }).withMessage('Password Must be 6 character long!'),
-        check('about').trim().isLength({ min: 10 }).withMessage('About must be min 10 charcater long!')
+        check('about').trim().isLength({ min: 10, max: 20 }).withMessage('About must be min 10 charcater long!')
     ]
     // exports.validateLoginUser = [
     //     check('email').isEmail().withMessage('Enter a valid email!').custom(async(email) => {
@@ -41,7 +41,7 @@ exports.userValidation = (req, res, next) => {
     console.log();
 
     if (!errors.length) return next();
-    res.status(422).json({ errors: errors, success: 'ok' });
+    res.status(422).json({ errors: errors, success: 'false' });
     // if (!errors.isEmpty()) {
     //     console.log('inside');
     //     res.status(422).json({ errors: errors.array() });
