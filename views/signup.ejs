@@ -48,7 +48,7 @@
             const passwordError = document.querySelector('.error.password');
             const aboutError = document.querySelector('.error.about');
             signup.addEventListener('submit', async(e) => {
-                console.log('button event is click');
+                // console.log('button event is click');
 
                 e.preventDefault();
                 const firstname = signup.firstname.value;
@@ -79,7 +79,7 @@
                         })
                     });
                     const data = await res.json();
-                    console.log(data);
+                    // console.log(data);
                     // const err = data.errors[0].msg;
                     // console.log(data.errors.email);
                     // if (data.errors.email) {
