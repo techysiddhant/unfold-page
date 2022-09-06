@@ -3,7 +3,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
-const { transporter } = require('../config/emailConfig');
+
 // 3days max age for jwt 
 const maxAge = 3 * 24 * 60 * 60;
 module.exports.forgot_get = (req, res) => {
