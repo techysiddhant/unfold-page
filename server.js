@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // setup the ejs engine
 
 
-app.get('*', checkUser);
+// app.get('*', checkUser);
 app.use(router);
 
 const PORT = process.env.PORT || 5000
