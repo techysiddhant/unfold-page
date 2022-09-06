@@ -40,10 +40,25 @@ const userSchema = new mongoose.Schema({
 // fire a function before saved to db;
 userSchema.pre('save', async function(next) {
     const salt = await bcrypt.genSalt();
+    console.log(this.password);
     this.password = await bcrypt.hash(this.password, salt)
     console.log('user is about to be created & saved', this);
     next();
 });
+// userSchema.post('findOneAndUpdate', async function(doc,next) {
+//     const salt = await bcrypt.genSalt();
+//     this.password = await bcrypt.hash(this.password, salt)
+//     this.model.update({},{
+
+//     })
+
+//     console.log(this.password);
+
+
+//     console.log('user is updated & saved', this);
+//     next();
+// });
+
 
 //static method to login User
 userSchema.statics.login = async function(email, password) {
