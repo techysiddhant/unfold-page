@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
+const { transporter } = require('../config/emailConfig');
 // 3days max age for jwt 
 const maxAge = 3 * 24 * 60 * 60;
 module.exports.forgot_get = (req, res) => {
@@ -24,7 +27,40 @@ module.exports.forgot_post = async(req, res) => {
         const token = jwt.sign(payload, secret, { expiresIn: '15m' });
         const link = `http://localhost:3000/reset-password/${user._id}/${token}`
         console.log(link);
-        res.send('Password link send successfully');
+        //send mail
+        // send mail with defined transport object
+        // console.log(user.email);
+        // let info = await transporter.sendMail({
+        //     from: process.env.EMAIL_FROM,
+        //     to: user.email,
+        //     subject: "Password reset Link from Untold Story",
+        //     text: "Hello From Untold Story....",
+        //     html: `<b>This link valid only for 15 Min only!!</b> <br> <a href=${link}>Click here to reset </a>`,
+        // });
+        // console.log("Message sent: %s", info.messageId);
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'untoldstory.services@gmail.com',
+                pass: 'Untold@2022'
+
+            }
+        })
+        const mailOptions = {
+            from: 'untoldstory.services@gmail.com',
+            to: user.email,
+            subject: 'Reset Link',
+            html: `<a href=${link}>Click Here</a>`
+        }
+        transporter.sendMail(mailOptions, (err, result) => {
+                if (err) {
+                    console.log(err)
+                    res.json('Opps error occured')
+                } else {
+                    res.json('thanks for e-mailing me');
+                }
+            })
+            // res.send('Password link send successfully');
     } catch (error) {
         console.log(error.message);
         // res.send(error.message);
