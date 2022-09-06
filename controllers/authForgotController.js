@@ -27,40 +27,33 @@ module.exports.forgot_post = async(req, res) => {
         const token = jwt.sign(payload, secret, { expiresIn: '15m' });
         const link = `http://localhost:3000/reset-password/${user._id}/${token}`
         console.log(link);
-        //send mail
-        // send mail with defined transport object
-        // console.log(user.email);
-        // let info = await transporter.sendMail({
-        //     from: process.env.EMAIL_FROM,
-        //     to: user.email,
-        //     subject: "Password reset Link from Untold Story",
-        //     text: "Hello From Untold Story....",
-        //     html: `<b>This link valid only for 15 Min only!!</b> <br> <a href=${link}>Click here to reset </a>`,
-        // });
-        // console.log("Message sent: %s", info.messageId);
+
+        // Now Send mail to the user
         let transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'untoldstory.services@gmail.com',
-                pass: 'Untold@2022'
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
 
             }
-        })
+        });
+
         const mailOptions = {
-            from: 'untoldstory.services@gmail.com',
+            from: process.env.EMAIL_FROM,
             to: user.email,
             subject: 'Reset Link',
             html: `<a href=${link}>Click Here</a>`
         }
         transporter.sendMail(mailOptions, (err, result) => {
-                if (err) {
-                    console.log(err)
-                    res.json('Opps error occured')
-                } else {
-                    res.json('thanks for e-mailing me');
-                }
-            })
-            // res.send('Password link send successfully');
+            if (err) {
+                console.log(err)
+                res.send('Opps error occured, Please retry after some time');
+            } else {
+                res.send('thanks for e-mailing me, check your inbox, or spam folder...');
+            }
+        });
+        res.cookie('jwt', '', { maxAge: 1 });
+        // res.send('Password link send successfully');
     } catch (error) {
         console.log(error.message);
         // res.send(error.message);
