@@ -3,7 +3,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
-
+const { validationResult } = require('express-validator');
 // 3days max age for jwt 
 const maxAge = 3 * 24 * 60 * 60;
 module.exports.forgot_get = (req, res) => {
@@ -15,10 +15,10 @@ module.exports.forgot_post = async(req, res) => {
     //make sure user exist or not
     try {
         const user = await User.findOne({ email });
-        if (!user) {
-            res.send('User is not registered');
-            return;
-        }
+        // if (!user) {
+        //     res.send('User is not registered');
+        //     return;
+        // }
         // create a one time link
         const secret = process.env.JWT_SECRET + user.password;
         const payload = {
@@ -44,12 +44,14 @@ module.exports.forgot_post = async(req, res) => {
             subject: 'Reset Link',
             html: `<a href=${link}>Click Here</a>`
         }
-        transporter.sendMail(mailOptions, (err, result) => {
+        transporter.sendMail(mailOptions, (err, res̥̥̥̥̥̥̥ult) => {
             if (err) {
                 console.log(err)
                 res.send('Opps error occured, Please retry after some time');
             } else {
-                res.send('thanks for e-mailing me, check your inbox, or spam folder...');
+                // res.send('thanks for e-mailing me, check your inbox, or spam folder...');
+                res.status(201).json({ user: 'forgot-user', success: 'Ok', accept: res̥̥̥̥̥̥̥ult.accepted[0] });
+                // console.log(res̥̥̥̥̥̥̥ult.accepted[0]);
             }
         });
         res.cookie('jwt', '', { maxAge: 1 });
@@ -63,6 +65,7 @@ module.exports.forgot_post = async(req, res) => {
 }
 module.exports.reset_get = async(req, res) => {
     const { id, token } = req.params;
+    console.log('id from get request', id);
     // res.send(req.params);
     // check if user exist or not
     try {
@@ -83,7 +86,20 @@ module.exports.reset_get = async(req, res) => {
 }
 module.exports.reset_post = async(req, res) => {
     const { id, token } = req.params;
+    // console.log('id from post request', id);
+    // console.log("🚀 ~ file: authForgotController.js ~ line 88 ~ module.exports.reset_post=async ~ i̥d", i̥d)
     const { password, password2 } = req.body;
+
+
+    //validation
+    if (password.length < 6) {
+        res.send('Password must be at least 6 characters');
+        return;
+    }
+    if (password !== password2) {
+        res.send('Password not matched');
+        return;
+    }
     try {
         const user = await User.findById({ _id: id });
         if (!user) {
@@ -97,9 +113,10 @@ module.exports.reset_post = async(req, res) => {
         const salt = await bcrypt.genSalt();
         const pass = await bcrypt.hash(password, salt);
         const newUser = await User.findOneAndUpdate({ _id: id }, { $set: { password: pass } });
-        // console.log(newUser);
+        console.log(newUser);
         // res.send(newUser);
         res.cookie('jwt', '', { maxAge: 1 });
+        // res.status(201).json({ success: 'Ok' });
         res.redirect('/login');
         // console.log(pass);
     } catch (error) {
