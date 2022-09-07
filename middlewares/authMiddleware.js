@@ -21,23 +21,36 @@ exports.validateUser = [
     check('about').trim().isLength({ min: 10, max: 20 }).withMessage('About must be min 10 charcater long!')
 ]
 
-// exports.validateLoginUser = [
-//     check('email').isEmail().withMessage('Enter a valid email!').custom(async(email) => {
-//         const existingUser = await User.findOne({ email })
-//         if (!existingUser) {
-//             throw new Error('Email is not registered');
-//         }
-//     }),
-//     check('password').trim().isLength({ min: 6 }).withMessage('Password Must be 6 character long!').custom(async(password)=>{
-//         const auth 
-//     }),
+exports.validateForgotPassword = [
+    check('email').isEmail().withMessage('Enter a valid email!').custom(async(email) => {
+        const existingUser = await User.findOne({ email })
+        if (!existingUser) {
+            throw new Error('Email is not registered');
+        }
+    })
+]
+exports.forgotvalidation = (req, res, next) => {
+    const err̥ors = validationResult(req).array();
+    console.log("🚀 ~ file: authMiddleware.js ~ line 34 ~ err̥ors", err̥ors.length)
+    if (!err̥ors.length) return next();
+    return res.status(400).json({ errors: err̥ors, success: 'false' });
+}
 
-// ]
-
-// exports.validationResult = (req,next)=>{
-
-// }
-
+exports.validateResetPassword = [
+    check('password').trim().isLength({ min: 6 }).withMessage('Password Must be 6 character long!'),
+    check('password2').custom(async(confirmPassword, { req }) => {
+        if (confirmPassword !== req.body.password) {
+            throw new Error('Password do not match');
+        }
+        return true;
+    })
+]
+exports.resetPasswordValidation = (req, res, next) => {
+    const err̥ors = validationResult(req).array();
+    console.log("🚀 ~ file: authMiddleware.js ~ line 34 ~ err̥ors", err̥ors.length)
+    if (!err̥ors.length) return next();
+    return res.status(400).json({ errors: err̥ors, success: 'false' });
+}
 exports.userValidation = (req, res, next) => {
     const errors = validationResult(req).array();
     console.log(errors.length);
