@@ -8,3 +8,7 @@ module.exports.addstory_get = (req, res) => {
 module.exports.addstory_post = (req, res) => {
     res.send('addstory post request');
 }
+
+module.exports.addstoryimage_get = (req, res) => {
+    res.render('image');
+}
