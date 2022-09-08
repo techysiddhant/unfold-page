@@ -51,6 +51,16 @@ exports.resetPasswordValidation = (req, res, next) => {
     if (!err̥ors.length) return next();
     return res.status(400).json({ errors: err̥ors, success: 'false' });
 }
+
+exports.validatetitle = [
+    check('title').trim().isLength({ max: 20 }).withMessage('Title must be 20 character long!'),
+]
+exports.titleValidation = (req, res, next) => {
+    const err̥ors = validationResult(req).array();
+    console.log("🚀 ~ file: authMiddleware.js ~ line 57 ~ err̥ors", err̥ors)
+    if (!err̥ors.length) return next();
+    return res.status(400).json({ errors: err̥ors, success: 'false' });
+}
 exports.userValidation = (req, res, next) => {
     const errors = validationResult(req).array();
     console.log(errors.length);
