@@ -1,5 +1,35 @@
 <%- include("./partials/header.ejs") %>
     <title>Untold Story | Add Story</title>
     </head>
-    <p>Add Story Page</p>
+
+    <div class="bg-gray-100">
+        <div class="container mx-auto min-h-screen bg-gray-100 text-gray-800">
+
+            <div class="add  w-full sm:w-2/3 container mx-auto">
+                <h1 class="pt-6 pl-8">Add Story</h1>
+                <form action="" method="POST" class="py-2 px-8">
+                    <label for="Add Story" class="block px-1 py-2">Title:</label>
+                    <input type="text" name="title" id="title" class="input-box h-10" placeholder="Title">
+                    <span class="block py-1 px-1 error title ">Invalid title</span>
+                    <label for="status" class="block py-2 px-1">Status</label>
+                    <select name="status" id="status" class="w-full border rounded-sm h-10 focus:outline-none focus:border-none focus:ring-1 focus:ring-blue-500 px-3 my-2">
+                        <option class="block my-2" value="public">Public</option>
+                        <option class="my-2" value="private">Private</option>
+                    </select>
+                    <h5 class="px-1 py-2">Tell us your story</h5>
+                    <textarea name="storybody" id="storybody"></textarea>
+                    <div class="flex items-center justify-start gap-5 my-4">
+                        <button type="submit" class="bg-blue-500 px-6 py-2 text-white rounded-sm shadow-lg hover:bg-blue-600 transition-all ease-in duration-300">Save</button>
+                        <a href="#" class="bg-gray-400 text-gray-900 px-6 py-2 rounded-sm shadow-lg hover:text-white hover:bg-blue-500 transition-all ease-in duration-300">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        CKEDITOR.replace('storybody', {
+            plugins: 'wysiwygarea, toolbar, basicstyles,link'
+        })
+    </script>
     <%- include("./partials/footer.ejs") %>
