@@ -3,6 +3,9 @@ const Story = require('../models/Story');
 const jwt = require('jsonwebtoken');
 const Grid = require("gridfs-stream");
 const mongoose = require("mongoose");
+module.exports.home_get = (req, res) => {
+    res.render('home');
+}
 module.exports.addstory_get = (req, res) => {
     res.render('addstory');
 }
