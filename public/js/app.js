@@ -1,106 +1,29 @@
-// For Login form
-const login = document.getElementById('login-form');
-// const signup = document.querySelector('.signup');
-//Error Message Box
-// const firstnameError = document.querySelector('.error.firstname');
-// const lastnameError = document.querySelector('.error.lastname');
-// const usernameError = document.querySelector('.error.username');
-// const emailError = document.querySelector('.error.email');
-// const passwordError = document.querySelector('.error.password');
-// const aboutError = document.querySelector('.error.about');
-// login.addEventListener('submit', async(e) => {
-//     e.preventDefault();
-//     const email = login.email.value;
-//     const password = login.password.value;
+const formaddstory = document.getElementById('form-addstory');
+const title = document.getElementById('title');
+const titleError = document.querySelector('.error.title');
+const storybody = document.getElementById('storybody');
+const status = document.getElementById('status');
 
-//     try {
-//         const res = await fetch('/login', {
-//             headers: {
-//                 'Content-type': 'application/json'
-//             },
-//             method: 'POST',
-//             body: JSON.stringify({
-//                 email: email,
-//                 password: password
-//             })
-//         });
-//         const data = await res.json();
-//         console.log(data);
+formaddstory.addEventListener('submit', async(e) => {
+    e.preventDefault();
+    titleError.textContent = '';
+    const res = await fetch('/add/story', {
+        headers: {
+            'Content-type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+            title: title.value,
 
-//     } catch (error) {
-//         console.log(error);
+        })
+    });
+    const data = await res.json();
+    console.log("🚀 ~ file: addstory.ejs ~ line 56 ~ formaddstory.addEventListener ~ data", data.errors)
 
-//     }
-// });
-
-// if (signup) {
-//     signup.addEventListener('submit', async(e) => {
-//         e.preventDefault();
-//         const firstname = signup.firstname.value;
-//         const lastname = signup.lastname.value;
-//         const username = signup.username.value;
-//         const about = signup.about.value;
-//         const email = signup.email.value;
-//         const password = signup.password.value;
-//         firstnameError.textContent = '';
-//         lastnameError.textContent = '';
-//         usernameError.textContent = '';
-//         aboutError.textContent = '';
-//         emailError.textContent = '';
-//         passwordError.textContent = '';
-//         try {
-//             const res = await fetch('/signup', {
-//                 headers: {
-//                     'Content-type': 'application/json'
-//                 },
-//                 method: 'POST',
-//                 body: JSON.stringify({
-//                     firstname: firstname,
-//                     lastname: lastname,
-//                     username: username,
-//                     about: about,
-//                     email: email,
-//                     password: password,
-//                 })
-//             });
-//             const data = await res.json();
-//             // const err = data.errors[0].msg;
-//             // console.log(data.errors.email);
-//             // if (data.errors.email) {
-//             //     emailError.textContent = data.errors.email;
-//             //     return;
-//             // }
-//             console.log(data.success);
-//             if (data.success !== 'Ok') {
+    if (data.errors) {
+        titleError.textContent = data.errors.title;
+    }
 
 
-//                 for (let i = 0; i < data.errors.length; i++) {
-//                     if (data.errors[i].param === 'firstname') {
-//                         firstnameError.textContent = data.errors[i].msg;
-//                     } else if (data.errors[i].param === 'lastname') {
-//                         lastnameError.textContent = data.errors[i].msg;
-//                     } else if (data.errors[i].param === 'username') {
-//                         usernameError.textContent = data.errors[i].msg;
-//                     } else if (data.errors[i].param === 'email') {
-//                         emailError.textContent = data.errors[i].msg;
-//                     } else if (data.errors[i].param === 'password') {
-//                         passwordError.textContent = data.errors[i].msg;
-//                     } else if (data.errors[i].param === 'about') {
-//                         aboutError.textContent = data.errors[i].msg;
-//                     }
-//                 }
-//             }
-//             // console.log(err);
 
-//             // console.log(data);
-//             console.log(data.user);
-//             if (data.user) {
-
-//                 location.assign('/login');
-//             }
-//         } catch (error) {
-//             console.log(error);
-
-//         }
-//     });
-// }
+})

@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema({
         about: {
             type: String,
             required: true,
+        },
+        createdAt: {
+            type: Date,
+            // default: Date.now,
+            default: function() { return Date.now() }
         }
     })
     // fire a function after doc saved to db

@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // setup the ejs engine
 
 
-// app.get('*', checkUser);
+app.get('*', checkUser);
 app.use(router);
 app.use(storyRouter);
 const PORT = process.env.PORT || 5000
