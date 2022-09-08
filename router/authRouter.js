@@ -9,7 +9,7 @@ router.get('/login', authController.login_get);
 router.post('/login', authController.login_post);
 router.get('/signup', authController.signup_get);
 router.post('/signup', validateUser, userValidation, authController.signup_post);
-router.get('/', requireAuth, authController.home_get);
+router.get('/logout', authController.logout_get);
 
 router.get('/forgot-password', authForgotController.forgot_get);
 router.post('/forgot-password', validateForgotPassword, forgotvalidation, authForgotController.forgot_post);

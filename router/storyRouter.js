@@ -4,6 +4,9 @@ const { requireAuth } = require('../middlewares/authUserVerifyMiddleware');
 const { validatetitle, titleValidation } = require('../middlewares/authMiddleware');
 const storyController = require('../controllers/storyController');
 const upload = require('../middlewares/upload');
+//home
+router.get('/', requireAuth, storyController.home_get);
+
 router.get('/add/story', requireAuth, storyController.addstory_get);
 router.post('/add/story', storyController.addstory_post);
 //media routes
