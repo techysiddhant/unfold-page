@@ -69,7 +69,7 @@
 
                     <h1>Feed</h1>
                 </a>
-                <a href="#" class="flex flex-col justify-center items-center">
+                <a href="/addstory" class="flex flex-col justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -87,51 +87,51 @@
         </footer>
 
 
-<script>
-const openBtn = document.getElementById('open-btn');
-const closeBtn = document.getElementById('close-btn');
-const header = document.getElementById('header');
-const navBar = document.getElementById('navbar');
-const body = document.getElementById('body');
-const footer = document.getElementById('footer');
+        <script>
+            const openBtn = document.getElementById('open-btn');
+            const closeBtn = document.getElementById('close-btn');
+            const header = document.getElementById('header');
+            const navBar = document.getElementById('navbar');
+            const body = document.getElementById('body');
+            const footer = document.getElementById('footer');
 
 
-    openBtn.addEventListener('click', () => {
+            openBtn.addEventListener('click', () => {
 
-        navBar.classList.toggle('close');
-        navBar.classList.toggle('open');
-        body.classList.remove('overflowopen');
-        body.classList.add('overflowhidden');
-        footer.classList.remove('fixed');
-        footer.classList.add('hidden');
-    });
-
-
+                navBar.classList.toggle('close');
+                navBar.classList.toggle('open');
+                body.classList.remove('overflowopen');
+                body.classList.add('overflowhidden');
+                footer.classList.remove('fixed');
+                footer.classList.add('hidden');
+            });
 
 
-    closeBtn.addEventListener('click', () => {
-        navBar.classList.toggle('open');
-        navBar.classList.toggle('close');
-        body.classList.remove('overflowhidden');
-        body.classList.toggle('overflowopen');
-        footer.classList.remove('hidden');
-        footer.classList.add('fixed');
-    });
-
-window.addEventListener('scroll', () => {
-console.log(window.pageYOffset);
-        
 
 
-            if (window.pageYOffset > 60) {
-                header.classList.remove('h-20');
-                header.classList.add('h-16');
-            } else if (window.pageYOffset < 60) {
-                header.classList.remove('h-16');
-                header.classList.add('h-20');
-            }
-        
-});
+            closeBtn.addEventListener('click', () => {
+                navBar.classList.toggle('open');
+                navBar.classList.toggle('close');
+                body.classList.remove('overflowhidden');
+                body.classList.toggle('overflowopen');
+                footer.classList.remove('hidden');
+                footer.classList.add('fixed');
+            });
+
+            window.addEventListener('scroll', () => {
+                console.log(window.pageYOffset);
+
+
+
+                if (window.pageYOffset > 60) {
+                    header.classList.remove('h-20');
+                    header.classList.add('h-16');
+                } else if (window.pageYOffset < 60) {
+                    header.classList.remove('h-16');
+                    header.classList.add('h-20');
+                }
+
+            });
         </script>
 
 

@@ -5,6 +5,7 @@ const path = require('path');
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
 const router = require('./router/authRouter');
+const storyRouter = require('./router/storyRouter');
 const cookieparser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middlewares/authUserVerifyMiddleware');
 //config file
@@ -31,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app.get('*', checkUser);
 app.use(router);
-
+app.use(storyRouter);
 const PORT = process.env.PORT || 5000
 app.listen(PORT, (req, res) => {
     console.log(`Server is Running at PORT: ${PORT}`);
