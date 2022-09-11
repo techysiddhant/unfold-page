@@ -7,11 +7,23 @@ module.exports.home_get = (req, res) => {
     res.render('home');
 }
 module.exports.addstory_get = (req, res) => {
-    res.render('addstory');
+    res.render('addstory', { title: '', storybody: '', error: '', status: '', errorImg: '' });
 }
 
 module.exports.addstory_post = async(req, res) => {
     const { title, storybody, status } = req.body;
+    if (title.length > 41) {
+        res.render('addstory', { error: "Title Must be 40 Characater long!", title, status, storybody });
+        return;
+        // error = "Title must be 40 char long!";
+    }
+    // res.redirect('/');
+    if (req.file === undefined) {
+        res.render('addstory', { errorImg: "You must Select a file", error: '', title, status, storybody });
+        return;
+        // return res.send("you must select a file.")
+    }
+    // res.redirect('/');
     const token = req.cookies.jwt;
     let dtoken;
     if (token) {
@@ -20,36 +32,22 @@ module.exports.addstory_post = async(req, res) => {
         });
     }
     try {
-        const story = await Story.create({ title: title, storybody: storybody, status: status, user: dtoken.id });
+        // console.log(req.file);
+        const imgid = req.file.id.toString();
+
+        const story = await Story.create({ title: title, storybody: storybody, status: status, user: dtoken.id, imageId: imgid });
         if (story) {
 
-            res.redirect(`/add/story/image/${story._id}`);
+            res.redirect('/');
         } else {
             res.send(`<h1>Something Went Wrong Try again</h1>`);
         }
     } catch (error) {
         console.log(error);
     }
-
 }
 
-module.exports.addstoryimage_get = (req, res) => {
-    res.render('image');
-}
 
-module.exports.addstoryimage_post = async(req, res) => {
-    const id = req.params.id;
-    console.log("🚀 ~ file: storyController.js ~ line 39 ~ module.exports.addstoryimage_post=async ~ id", id)
-    if (req.file === undefined) return res.send("you must select a file.");
-    try {
-        const imgid = req.file.id.toString();
-        console.log("🚀 ~ file: storyController.js ~ line 43 ~ module.exports.addstoryimage_post=async ~ imgid", imgid)
-        const story = await Story.findByIdAndUpdate({ _id: id }, { imageId: imgid });
-        res.redirect('/');
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 //for search results
 
