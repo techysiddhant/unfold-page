@@ -8,10 +8,7 @@ const upload = require('../middlewares/upload');
 router.get('/', requireAuth, storyController.home_get);
 
 router.get('/add/story', requireAuth, storyController.addstory_get);
-router.post('/add/story', storyController.addstory_post);
-//media routes
-router.get('/add/story/image/:id', storyController.addstoryimage_get);
-router.post('/add/story/image/:id', upload.single('image'), storyController.addstoryimage_post);
+router.post('/add/story', upload.single('image'), storyController.addstory_post);
 
 //story
 router.get('/searchResults', storyController.searchResults_get);
