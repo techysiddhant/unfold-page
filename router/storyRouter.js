@@ -13,6 +13,9 @@ router.post('/add/story', storyController.addstory_post);
 router.get('/add/story/image/:id', storyController.addstoryimage_get);
 router.post('/add/story/image/:id', upload.single('image'), storyController.addstoryimage_post);
 
+//story
+router.get('/searchResults', storyController.searchResults_get);
+
 
 
 

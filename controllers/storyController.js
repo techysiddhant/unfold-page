@@ -50,3 +50,9 @@ module.exports.addstoryimage_post = async(req, res) => {
         console.log(error);
     }
 }
+
+//for search results
+
+module.exports.searchResults_get = (req, res) => {
+    res.render('searchResults');
+}
