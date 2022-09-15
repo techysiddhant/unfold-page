@@ -2,7 +2,13 @@
 module.exports = {
   content: ["./views/**/*.ejs","./views/partials/**/*.ejs"],
   theme: {
-    extend: {},
+    extend: {
+
+    },
+    fontFamily:{
+      dance:['Dancing Script', 'cursive'],
+      pacifico: ['Pacifico', 'cursive']
+    },
   },
   plugins: [],
 }
