@@ -54,3 +54,12 @@ module.exports.addstory_post = async(req, res) => {
 module.exports.searchResults_get = (req, res) => {
     res.render('searchResults');
 }
+
+
+module.exports.dashboard_get = (req, res) => {
+    res.render('dashboard');
+}
+
+module.exports.show_get = (req, res) => {
+    res.render('show');
+}
