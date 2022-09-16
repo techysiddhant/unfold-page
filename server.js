@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const router = require('./router/authRouter');
 const storyRouter = require('./router/storyRouter');
 const cookieparser = require('cookie-parser');
+const moment = require('moment');
+const methodOverride = require('method-override')
 const { requireAuth, checkUser } = require('./middlewares/authUserVerifyMiddleware');
 //config file
 dotenv.config({ path: './config/config.env' });
@@ -26,10 +28,31 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }));
 // add public folder
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'));
+// setup helpers
 
-// setup the ejs engine
-
-
+app.locals.formatDate = (date, format) => {
+    return moment(date).utc().format(format)
+}
+app.locals.trimBody = (str, len) => {
+    if (str.length > len && str.length > 0) {
+        let newStr = str + ''
+        newStr = str.substr(0, len);
+        newStr = str.substr(0, newStr.lastIndexOf(''))
+        newStr = newStr.length > 0 ? newStr : str.substr(0, len)
+        return newStr + '...';
+    }
+    return str;
+}
+app.locals.stripTag = (input) => {
+    return input.replace(/<(?:.|\n)*?>/gm, '');
+}
+app.locals.displayName = (str1, str2) => {
+    let r1 = str1.slice(0, 1);
+    let r2 = str2.slice(0, 1);
+    let result = r1.concat(r2);
+    return result.toUpperCase();
+}
 app.get('*', checkUser);
 app.use(router);
 app.use(storyRouter);

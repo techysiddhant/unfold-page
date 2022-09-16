@@ -17,15 +17,18 @@ const StorySchema = new mongoose.Schema({
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'user',
     },
     imageId: {
         type: mongoose.Schema.Types.ObjectId,
     },
+    imgname: {
+        type: String,
+    },
     createdAt: {
         type: Date,
-        // default: Date.now,
-        default: function() { return Date.now() }
+        default: Date.now,
+        // default: function() { return Date.now() }
     },
 })
 
