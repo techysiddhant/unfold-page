@@ -2,10 +2,29 @@ const User = require('../models/User');
 const Story = require('../models/Story');
 const jwt = require('jsonwebtoken');
 const Grid = require("gridfs-stream");
+const { GridFsStorage } = require('multer-gridfs-storage');
+const dotenv = require('dotenv');
+const path = require('path');
+const multer = require("multer");
+dotenv.config({ path: './config/config.env' });
 const mongoose = require("mongoose");
-module.exports.home_get = (req, res) => {
-    res.render('home');
-}
+// const connectDB = require('../config/db');
+// connectDB();
+const MONGOURI = process.env.MONGO_URI;
+// console.log(MONGOURI);
+
+const conn = mongoose.createConnection(MONGOURI);
+
+let gfs, gridfsBucket;
+conn.once('open', () => {
+    gridfsBucket = new mongoose.mongo.GridFSBucket(conn.db, {
+        bucketName: 'photos'
+    });
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection('photos');
+});
+
+
 module.exports.addstory_get = (req, res) => {
     res.render('addstory', { title: '', storybody: '', error: '', status: '', errorImg: '' });
 }
@@ -34,11 +53,13 @@ module.exports.addstory_post = async(req, res) => {
     try {
         // console.log(req.file);
         const imgid = req.file.id.toString();
+        const imgname = req.file.filename;
+        console.log(imgname);
 
-        const story = await Story.create({ title: title, storybody: storybody, status: status, user: dtoken.id, imageId: imgid });
+        const story = await Story.create({ title: title, storybody: storybody, status: status, user: dtoken.id, imageId: imgid, imgname });
         if (story) {
 
-            res.redirect('/');
+            res.redirect('/posts');
         } else {
             res.send(`<h1>Something Went Wrong Try again</h1>`);
         }
@@ -55,11 +76,133 @@ module.exports.searchResults_get = (req, res) => {
     res.render('searchResults');
 }
 
+// DASHBOARD
+module.exports.dashboard_get = async(req, res) => {
+        const token = req.cookies.jwt;
+        let dtoken;
+        if (token) {
+            jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+                dtoken = decodedToken;
+            });
+        }
+        try {
+            const stories = await Story.find({ user: dtoken.id }).lean();
+            res.render('dashboard', { stories });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    // edit page
+module.exports.edit_get = async(req, res) => {
+    const id = req.params.id;
+    // console.log(id);
+    try {
+        const story = await Story.findById({ _id: id });
+        res.render('edit', { story, error: '' });
+    } catch (error) {
+        console.log(error)
+    }
+}
+module.exports.edit_post = async(req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    let { title, status, storybody } = req.body;
+    // console.log("🚀 ~ file: storyController.js ~ line 91 ~ module.exports.edit_post=async ~ title", title)
+    try {
+        let story = await Story.findById({ _id: id }).lean();
+        if (title.length > 41) {
+            res.render('edit', { error: "Title Must be 40 Characater long!", story });
+            return;
+            // error = "Title must be 40 char long!";
+        }
+        story = await Story.findOneAndUpdate({ _id: id }, req.body);
+        res.redirect('/posts');
+    } catch (error) {
+        console.log(error);
 
-module.exports.dashboard_get = (req, res) => {
-    res.render('dashboard');
+    }
 }
 
-module.exports.show_get = (req, res) => {
-    res.render('show');
+//delete post
+module.exports.delete_post = async(req, res) => {
+    try {
+        const story = await Story.findByIdAndDelete({ _id: req.params.id });
+        res.redirect('/');
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+//show all public posts
+module.exports.posts_get = async(req, res) => {
+    // get logged in user
+    const token = req.cookies.jwt;
+    let dtoken;
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+            dtoken = decodedToken;
+        });
+    }
+    try {
+        const userLogedIn = await User.findById({ _id: dtoken.id });
+        console.log(userLogedIn);
+        const stories = await Story.find({ status: 'public' }).populate('user').sort({ createdAt: 'desc' }).lean();
+        const publicStoryNo = await Story.find({
+            "$and": [
+                { status: 'public' },
+                { user: dtoken.id }
+            ]
+        });
+        const privateStoryNo = await Story.find({
+            "$and": [
+                { status: 'private' },
+                { user: dtoken.id }
+            ]
+        });
+        // console.log(privateStoryNo.length);
+        res.render('home', { stories, userLogedIn, publicStoryNo: publicStoryNo.length, privateStoryNo: privateStoryNo.length });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// testing image file route
+// module.exports.imageall_get = (req, res) => {
+//         gfs.files.find().toArray((err, files) => {
+//             if (!files || files.length === 0) {
+//                 return res.status(404).json({ err: 'No file Exist' })
+//             }
+//             return res.json(files);
+//         })
+//     }
+
+// show image
+module.exports.image_get = async(req, res) => {
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+        if (!file) {
+            return res.status(404).json({ err: 'No file exist' });
+        }
+        //check if image or not
+
+        if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+            //Read output to the browser
+            const readstream = gridfsBucket.openDownloadStream(file._id);
+            readstream.pipe(res)
+        } else {
+            res.status(404).json({ err: 'Not an image' });
+        }
+    })
+}
+
+// single story
+module.exports.post_get = async(req, res) => {
+    try {
+        const post = await Story.findById({ _id: req.params.id });
+        console.log(post);
+        const user = await User.findById({ _id: post.user.toString() });
+        res.render('show', { post, user });
+    } catch (error) {
+        console.log(error);
+    }
 }

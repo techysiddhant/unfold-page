@@ -1,38 +1,37 @@
 <%- include("./partials/header.ejs") %>
-    <title>Untold Story | Add Story</title>
+    <title>Untold Story | Edit</title>
     </head>
 
     <div class="bg-gray-100">
         <div class="container mx-auto min-h-screen bg-gray-100 text-gray-800">
 
             <div class="add  w-full sm:w-2/3 container mx-auto">
-                <h1 class="pt-6 pl-8 text-3xl">Add Story</h1>
-                <form action="/add" method="POST" class="py-2 px-8" id="form-addstory" enctype="multipart/form-data">
+                <h1 class="pt-6 pl-8 text-3xl">Edit</h1>
+                <form action="/edit/<%= story._id %>" method="POST" class="py-2 px-8" id="form-addstory">
 
                     <label for="Add Story" class="block px-1 py-2">Title:</label>
-                    <input type="text" name="title" id="title" class="input-box h-10" placeholder="Title" value="<%= title? title : '' %>">
+                    <input type="text" name="title" id="title" class="input-box h-10" placeholder="Title" value="<%= story.title %>">
 
                     <span class="error-msg  py-1 px-1 "><%= error ? error : '' %></span>
 
                     <label for="status" class="block py-2 px-1">Status</label>
                     <select name="status" id="status" class="w-full border rounded-sm h-10 focus:outline-none focus:border-none focus:ring-1 focus:ring-indigo-700 px-3 my-2 mb-2">
-                        <% if(status === 'public'){  %>
+                        <% if(story.status === 'public'){  %>
                             <option class="block my-2" value="public" selected >Public</option>
                             <option class="my-2" value="private"  >Private</option>
 
-                        <% }else if(status === 'private'){  %>
+                        <% }else if(story.status === 'private'){  %>
                         <option class="my-2" value="private" selected  >Private</option>
                         <option class="block my-2" value="public" >Public</option>
                             <% } %>
-                        <% if(!status){ %>
+                        <% if(!story.status){ %>
                         <option class="block my-2" value="public"  >Public</option>
                         <option class="my-2" value="private"   >Private</option>
                         <% }%>
                     </select>
-                    <input type="file" name="image" id="" class="block input-box bg-white w-full h-16">
-                    <span class="error-msg py-1 px-1 "><%= errorImg ? errorImg : '' %></span>
+
                     <h5 class="px-1 py-2">Tell us something</h5>
-                    <textarea name="storybody" id="storybody"></textarea>
+                    <textarea name="storybody" id="storybody"><%= story.storybody %></textarea>
                     <div class="flex items-center justify-start gap-5 my-4">
                         <button type="submit" class="bg-indigo-700 px-6 py-2 text-white rounded-sm shadow-lg hover:bg-indigo-800  transition-all ease-in duration-300">Save</button>
                         <a href="/" class="bg-gray-400 text-gray-900 px-6 py-2 rounded-sm shadow-lg hover:text-white hover:bg-indigo-700 transition-all ease-in duration-300">Cancel</a>

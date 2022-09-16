@@ -5,112 +5,153 @@
         <a href="" class="flex justify-center items-center text-md sm:text-xl md:text-2xl font-semibold">
           Untold Story
           </a>
-          <a href="/" class="hover:scale-125 transition-all ease-in duration-200  ">
+        <a href="/posts" class="hover:scale-125 transition-all ease-in duration-200  ">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
               </svg>
-              
-          </a>
+
+        </a>
     </header>
     <!-- <div class="bg-gray-100 min-h-screen">
         
     </div> -->
     <section class="bg-gray-100 min-h-screen">
-        <div class="container mx-auto min-h-screen  py-28">
+
+        <div class="container mx-auto min-h-screen px-10 py-28">
             <div class=" bg-gray-100 p-5">
                 <h1 class="mb-2 text-2xl md:text-3xl">Dashboard</h1>
-        
+
+
                 <div class="hidden overflow-auto rounded-lg shadow md:block">
-                    <table class="w-full">
-                        <thead class="border-b-2 border-gray-200 bg-gray-50">
-                            <tr>
-                                <th class="w-20 px-4 py-3 text-left text-sm font-semibold tracking-wide">No.</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold tracking-wide">Title</th>
-                                <th class="w-32 px-4 py-3 text-left text-sm font-semibold tracking-wide">Date</th>
-                                <th class="w-24 px-4 py-3 text-left text-sm font-semibold tracking-wide">Status</th>
-                                <th class="w-24 px-4 py-3 text-left text-sm font-semibold tracking-wide">Edit</th>
-                                <th class="w-32 px-4 py-3 text-left text-sm font-semibold tracking-wide">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100  ">
-                            <tr class="bg-white">
-                                <td class="whitespace-nowrap p-3 text-sm text-gray-700">
-                                    <!-- <a href="#" class="font-bold text-blue-500 hover:underline">10001</a> -->
-                                    1100
-                                </td>
-                                <td id="title" class=" p-3 text-sm text-gray-700">
-                                    <a href="" class="font-bold text-blue-500 hover:underline">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad explicabo accusantium sed fuga pariatur, provident sapiente maiores veritatis similique quibusdam dicta maxime perspiciatis? Recusandae quaerat, vitae labore aliquam unde accusamus?</a>
-                                </td>
-                                <td class="whitespace-nowrap p-3 text-sm text-gray-700">16/10/2021</td>
+                    <% if(stories) {%>
+                        <table class="w-full">
+                            <thead class="border-b-2 border-gray-200 bg-gray-50">
+                                <tr>
+                                    <th class="w-20 px-4 py-3 text-left text-sm font-semibold tracking-wide">No.</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold tracking-wide">Title</th>
+                                    <th class="w-32 px-4 py-3 text-left text-sm font-semibold tracking-wide">Date</th>
+                                    <th class="w-24 px-4 py-3 text-left text-sm font-semibold tracking-wide">Status</th>
+                                    <th class="w-24 px-4 py-3 text-left text-sm font-semibold tracking-wide">Edit</th>
+                                    <th class="w-32 px-4 py-3 text-left text-sm font-semibold tracking-wide">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100  ">
+                                <% var i=1; %>
 
-                                <td class="whitespace-nowrap p-3 text-sm text-gray-700">
-                                    <span class="rounded-lg bg-green-200 bg-opacity-50 p-1.5 text-xs font-medium uppercase tracking-wider text-green-800">Public</span>
-                                </td>
+                                    <% stories.forEach((story)=>{ %>
 
-                                <td class="whitespace-nowrap p-3 text-sm text-gray-700">
-                                    <form action="" method="post" class="">
-                                        <button type="submit" class="bg-green-600 text-white py-1 px-2 rounded-md hover:scale-125 transition-all ease-in duration-200">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                        <tr class="bg-white">
+                                            <td class="whitespace-nowrap p-3 text-sm text-gray-700">
+                                                <!-- <a href="#" class="font-bold text-blue-500 hover:underline">10001</a> -->
+                                                <%= i++ %>
+
+                                            </td>
+                                            <td id="title" class=" p-3 text-sm text-gray-700">
+                                                <a href="/posts/<%= story._id %>" class="font-bold text-blue-500 hover:underline">
+                                                    <%= story.title %>
+                                                </a>
+                                            </td>
+                                            <td class="whitespace-nowrap p-3 text-sm text-gray-700">
+                                                <%= formatDate(story.createdAt,'MMMM Do YYYY, h:mm:ss a') %>
+                                            </td>
+
+                                            <td class="whitespace-nowrap p-3 text-sm text-gray-700">
+                                                <% if(story.status === 'public'){ %>
+                                                    <span class="rounded-lg bg-green-200 bg-opacity-50 p-1.5 text-xs font-medium uppercase tracking-wider text-green-800"><%= story.status %></span>
+                                                    <% }else{ %>
+                                                        <span class="rounded-lg bg-yellow-200 bg-opacity-50 p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800"><%= story.status %></span>
+                                                        <% }%>
+                                            </td>
+
+                                            <td class="whitespace-nowrap p-3 text-sm text-gray-700">
+
+                                                <a href="/edit/<%= story._id%>" class="bg-green-600 text-white py-1 px-2 rounded-md hover:scale-125 transition-all ease-in duration-200 inline-block">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                               </svg>
-                                        </button>
-                                    </form>
-                                </td>
-                                <td class="whitespace-nowrap p-3 text-sm text-gray-700">
-                                    <form action="">
-                                        <button type="submit" class="bg-red-600 text-white py-1 px-2 rounded-md hover:scale-125 transition-all ease-in duration-200">
+                                                </a>
+
+                                            </td>
+                                            <td class="whitespace-nowrap p-3 text-sm text-gray-700">
+                                                <form action="/delete/<%= story._id %>?_method=DELETE" method="POST">
+                                                    <button type="submit" class="bg-red-600 text-white py-1 px-2 rounded-md hover:scale-125 transition-all ease-in duration-200">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                               </svg>
                                               
                                         </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+
+
+                            </tbody>
+                        </table>
+                        <% } else{%>
+                            <p>You did not Post anything Yet!!</p>
+                            <% } %>
                 </div>
-        
+
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:hidden">
-                    <div class="space-y-3 rounded-lg bg-white p-4 shadow">
-                        <div class="flex items-center space-x-4 text-sm">
-                            <div class="font-semibold">
-                                <!-- <a href="#" class="font-bold text-blue-500 hover:underline">#1000</a> -->
-                                #1000
-                            </div>
-                            <div class="text-gray-500 ">10/10/2021</div>
-                            <div>
-                                <span class="rounded-lg bg-green-200 bg-opacity-50 p-1.5 text-xs font-medium uppercase tracking-wider text-green-800">Public</span>
-                            </div>
-                        </div>
-                        <div class="text-sm text-gray-700">
-                                <a href="#" class="font-bold text-blue-500 hover:underline">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas omnis vero labore provident magnam ducimus optio, odio alias sint aliquam harum animi obcaecati quae eum eaque expedita non quo sequi?</a>
+                    <% if(stories) {%>
 
-                            
-                        </div>
-                        <div class="text-sm font-medium flex space-x-5 ">
-                            <form action=""method="post">
-                                <button type="submit" class="bg-green-600 text-white py-1 px-2 rounded-md hover:scale-125 transition-all ease-in duration-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+
+                        <% var j=1 %>
+                            <% stories.forEach((story)=>{ %>
+
+
+                                <div class="space-y-3 rounded-lg bg-white p-4 shadow">
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <div class="font-semibold">
+                                            <!-- <a href="#" class="font-bold text-blue-500 hover:underline">#1000</a> -->
+                                            <%= j++ %>
+                                        </div>
+                                        <div class="text-gray-500 ">
+                                            <%= formatDate(story.createdAt,'DD-MM-YYYY') %>
+                                        </div>
+                                        <div>
+                                            <% if(story.status === 'public'){%>
+                                                <span class="rounded-lg bg-green-200 bg-opacity-50 p-1.5 text-xs font-medium uppercase tracking-wider text-green-800"><%= story.status %></span>
+                                                <%}else{  %>
+                                                    <span class="rounded-lg bg-yellow-200 bg-opacity-50 p-1.5 text-xs font-medium uppercase tracking-wider text-yellow-800"><%= story.status %></span>
+                                                    <% }%>
+                                        </div>
+                                    </div>
+                                    <div class="text-sm text-gray-700">
+                                        <a href="#" class="font-bold text-blue-500 hover:underline">
+                                            <%= story.title %>
+                                        </a>
+
+
+                                    </div>
+                                    <div class="text-sm font-medium flex space-x-5 ">
+
+                                        <a href="/edit/<%= story._id%>" class="bg-green-600 text-white py-1 px-2 rounded-md hover:scale-125 transition-all ease-in duration-200">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                       </svg>
-                                </button>
-                            </form>
-                            <form action=""method="post">
-                                <button type="submit" class="bg-red-600 text-white py-1 px-2 rounded-md hover:scale-125 transition-all ease-in duration-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                      </svg>
-                                </button>
-                            </form>
-                        </div>
+                                        </a>
 
-                    </div>
-                    
+                                        <form action="/delete/<%= story._id %>?_method=DELETE" method="POST">
+                                            <button type="submit" class="bg-red-600 text-white py-1 px-2 rounded-md hover:scale-125 transition-all ease-in duration-200">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                        </svg>
+                                                        </button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <% }) %>
+                                    <% } else {%>
+                                        <p>You did not post anything yet!!</p>
+                                        <% } %>
                 </div>
+
             </div>
         </div>
+
     </section>
 
     <%- include("./partials/footer.ejs") %>
