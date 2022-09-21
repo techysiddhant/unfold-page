@@ -72,9 +72,9 @@ module.exports.addstory_post = async(req, res) => {
 
 //for search results
 
-module.exports.searchResults_get = (req, res) => {
-    res.render('searchResults');
-}
+// module.exports.searchResults_get = (req, res) => {
+//     res.render('searchResults');
+// }
 
 // DASHBOARD
 module.exports.dashboard_get = async(req, res) => {
@@ -204,5 +204,37 @@ module.exports.post_get = async(req, res) => {
         res.render('show', { post, user });
     } catch (error) {
         console.log(error);
+    }
+}
+
+// show search results
+module.exports.searchResults_get = async(req, res) => {
+    const searchtag = req.body.searchname;
+    if (!searchtag) {
+        res.redirect('/');
+        return;
+    }
+    try {
+        const stories = await Story.find({
+            "$and": [
+                { title: { $regex: searchtag, $options: '$i' } },
+                { status: 'public' }
+            ]
+        }).populate('user').sort({ createdAt: 'desc' }).lean();
+        // console.log(stories);
+        res.render("searchResults", { stories });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// show single users all story
+module.exports.userStory_get = async(req, res) => {
+    const userid = req.params.userid;
+    try {
+        const story = await Story.find({ user: userid, status: 'public' }).populate('user').lean();
+        res.render('userStory', { stories: story, });
+    } catch (error) {
+
     }
 }
