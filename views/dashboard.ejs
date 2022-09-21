@@ -23,7 +23,7 @@
 
 
                 <div class="hidden overflow-auto rounded-lg shadow md:block">
-                    <% if(stories) {%>
+                    <% if(stories.length>0) {%>
                         <table class="w-full">
                             <thead class="border-b-2 border-gray-200 bg-gray-50">
                                 <tr>
@@ -89,7 +89,7 @@
                             </tbody>
                         </table>
                         <% } else{%>
-                            <p>You did not Post anything Yet!!</p>
+                            <p class="text-2xl text-slate-800">You did not Post anything Yet!!</p>
                             <% } %>
                 </div>
 

@@ -5,8 +5,8 @@
     @apply text-xs text-red-700 font-semibold my-1 block;
 }
 
-@layer base{
-    html{
+@layer base {
+    html {
         @apply scroll-smooth;
     }
 }
@@ -19,6 +19,7 @@
         @apply border w-full h-5 hover:outline-none focus:outline-none focus:ring-1 focus:ring-blue-500 px-3 py-4 mt-2 rounded-sm;
     }
 }
+
 .close {
     transform: translateX(100%);
     transition: all 0.5s ease-out;
@@ -40,7 +41,9 @@
     overflow: hidden;
 }
 
+
 /* search-box */
+
 
 /* .search-box{
     position: absolute;
@@ -85,4 +88,3 @@
     line-height: 12px;
     width: 0px;
 } */
-

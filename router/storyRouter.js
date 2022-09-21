@@ -33,8 +33,10 @@ router.get('/posts', requireAuth, storyController.posts_get);
 //show single post
 router.get('/posts/:id', requireAuth, storyController.post_get);
 
-
-
+//show search results
+router.post('/searchresults', requireAuth, storyController.searchResults_get);
+//show user's story
+router.get('/user/:userid', requireAuth, storyController.userStory_get);
 
 
 
