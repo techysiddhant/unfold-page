@@ -42,7 +42,45 @@ module.exports.forgot_post = async(req, res) => {
             from: process.env.EMAIL_FROM,
             to: user.email,
             subject: 'Reset Link',
-            html: `<a href=${link}>Click Here</a>`
+            html: `<body style="background-color: #e8eeee;">
+            <div style="text-align: center; margin: 100px auto 20px;">
+              <a
+                href=""
+                style="
+                  font-size: 28px;
+                  text-decoration: none;
+                  color: black;
+                  font-weight: 700;
+                "
+                >Untold Story</a>
+            </div>
+            <div
+              style="
+                height: 50vh;
+                width: 50vw;
+                background-color: rgb(197, 197, 197);
+                margin: 10px auto 50px;
+                border-radius: 5px;
+                padding: 10px 20px;
+              ">
+                <p style="font-weight: 600">Hi User,</p>
+                <p>Forgot Your Password?</p>
+                <p>
+                  We have received a request from you to reset the password for your
+                  account.
+                </p>
+                <p>To reset your password, click on the button below:</p>
+                <button style="padding: 5px 10px; background-color: indigo;">
+                  <a href="${link}" style="text-decoration: none; color: whiteSmoke"
+                    >Reset Password</a
+                  >
+                </button>
+                <p>
+                  If you didn't request for reset your pasword, just ignore this mail.
+                </p>
+            </div>
+          </div>
+        </body>`
         }
         transporter.sendMail(mailOptions, (err, res̥̥̥̥̥̥̥ult) => {
             if (err) {
