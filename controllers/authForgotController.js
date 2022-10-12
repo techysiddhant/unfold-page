@@ -51,6 +51,7 @@ module.exports.forgot_post = async(req, res) => {
                   text-decoration: none;
                   color: black;
                   font-weight: 700;
+                  margin-top:20px;
                 "
                 >Untold Story</a>
             </div>
@@ -59,7 +60,7 @@ module.exports.forgot_post = async(req, res) => {
                 height: 50vh;
                 width: 50vw;
                 background-color: rgb(197, 197, 197);
-                margin: 10px auto 50px;
+                margin: 10px auto 70px;
                 border-radius: 5px;
                 padding: 10px 20px;
               ">
@@ -70,6 +71,7 @@ module.exports.forgot_post = async(req, res) => {
                   account.
                 </p>
                 <p>To reset your password, click on the button below:</p>
+                <p>Link is only valid for 15 minutes*</p>
                 <button style="padding: 5px 10px; background-color: indigo;">
                   <a href="${link}" style="text-decoration: none; color: whiteSmoke"
                     >Reset Password</a

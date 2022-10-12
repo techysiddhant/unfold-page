@@ -25,11 +25,11 @@ const StorySchema = new mongoose.Schema({
     imgname: {
         type: String,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        // default: function() { return Date.now() }
-    },
-})
+    markSafe: Boolean,
+    spam: [{
+        spamBy: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
+    }],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }]
+}, { timestamps: true })
 
 module.exports = mongoose.model('Story', StorySchema)

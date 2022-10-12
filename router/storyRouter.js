@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { requireAuth } = require('../middlewares/authUserVerifyMiddleware');
+const { requireAuth, requireAdminViewStory } = require('../middlewares/authUserVerifyMiddleware');
 const { validatetitle, titleValidation } = require('../middlewares/authMiddleware');
 const storyController = require('../controllers/storyController');
 const upload = require('../middlewares/upload');
@@ -12,7 +12,7 @@ router.get('/add', requireAuth, storyController.addstory_get);
 //ADD STORY PAGE POST REQUEST
 router.post('/add', requireAuth, upload.single('image'), storyController.addstory_post);
 //image url
-router.get('/image/:filename', requireAuth, storyController.image_get);
+router.get('/image/:filename', requireAdminViewStory, storyController.image_get);
 //image files testing route
 // router.get('/files', storyController.imageall_get);
 //story
@@ -31,12 +31,14 @@ router.get('/posts', requireAuth, storyController.posts_get);
 // router.get('/:id', storyController.show_get);
 
 //show single post
-router.get('/posts/:id', requireAuth, storyController.post_get);
+router.get('/posts/:id', requireAdminViewStory, storyController.post_get);
 
 //show search results
 router.post('/searchresults', requireAuth, storyController.searchResults_get);
 //show user's story
 router.get('/user/:userid', requireAuth, storyController.userStory_get);
+//report the story
+router.post('/report/:id', storyController.reportStory_post);
 
 
 
