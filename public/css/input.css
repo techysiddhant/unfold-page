@@ -41,6 +41,19 @@
     overflow: hidden;
 }
 
+.menu{
+    transform-origin: top right;
+}
+.hide{
+    transform: scale(0);
+    transition: transform 0.2s ease;
+}
+.settings .menu.show{
+    transform: scale(1);
+}
+/* .settings:hover .menu{
+    transform: scale(1);
+} */
 
 /* search-box */
 

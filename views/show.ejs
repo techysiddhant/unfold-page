@@ -18,7 +18,7 @@
             <% if(post){%>
                 <div class="container mx-auto grid gap-6 p-4 px-10 sm:grid-cols-1 md:grid-cols-3">
                     <div class="bg-white p-7 shadow-md md:col-span-2">
-                        <span class="font-medium text-lg"><%= formatDate(post.createdAt,'MMMM Do YYYY, h:mm:ss a')   %></span>
+                        <span class="font-medium text-lg"><%= formatDate(post.createdAt,'LLL')   %></span>
                         <h1 class="my-4 font-semibold text-lg p-2">
                             <%= post.title %>
                         </h1>

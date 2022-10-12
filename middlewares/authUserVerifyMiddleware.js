@@ -6,13 +6,44 @@ const requireAuth = (req, res, next) => {
 
     //check json web token exist & verified
     if (token) {
-        jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+        jwt.verify(token, process.env.JWT_SECRET, async(err, decodedToken) => {
             if (err) {
                 console.log(err.message);
                 res.redirect('/login');
             } else {
                 // console.log(decodedToken);
                 // res.render('home');
+                const user = await User.findById(decodedToken.id);
+                if (user.role !== 'admin') {
+                    next();
+                } else {
+                    res.redirect('/admin/home');
+                }
+            }
+        })
+    } else {
+        res.redirect('/login');
+    }
+}
+
+const requireAdminViewStory = (req, res, next) => {
+    const token = req.cookies.jwt
+
+    //check json web token exist & verified
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET, async(err, decodedToken) => {
+            if (err) {
+                console.log(err.message);
+                res.redirect('/login');
+            } else {
+                // console.log(decodedToken);
+                // res.render('home');
+                // const user = await User.findById(decodedToken.id);
+                // if (user.role !== 'admin') {
+                //     next();
+                // } else {
+                //     res.redirect('/login');
+                // }
                 next();
             }
         })
@@ -62,4 +93,4 @@ const checkUser = (req, res, next) => {
 //         // next();
 //     }
 // }
-module.exports = { requireAuth, checkUser };
+module.exports = { requireAuth, checkUser, requireAdminViewStory };

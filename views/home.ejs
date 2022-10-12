@@ -3,7 +3,7 @@
     </head>
 
     <body id="body">
-        <header id="header" class=" fixed w-full h-20 bg-indigo-700 text-white flex flex-row justify-around sm:justify-between items-center drop-shadow-md  px-6 md:px-12">
+        <header id="header" class=" fixed w-full h-20 bg-indigo-700 text-white flex flex-row justify-around sm:justify-between items-center drop-shadow-md  px-6 md:px-12 z-40">
             <a href="" class="font-pacifico tracking-wider flex justify-center items-center text-md sm:text-xl md:text-2xl ">
           Untold Story
           </a>
@@ -59,15 +59,27 @@
 
 
                             <div class=" h-full  overflow-hidden rounded-lg bg-white shadow-lg shadow-slate-400 p-0">
-                                <div class="px-3 py-1 border-b-2 border-gray-300 border-opacity-60">
+                                <div class="px-3 py-1 border-b-2 border-gray-300 border-opacity-60 flex justify-between">
                                     <span class="text-slate-800">@<%= story.user.username %></span>
+                                    <div id="setting" class="settings relative">
+                                        <span id="setting-btn" class="z-1 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                                          </svg>
+                                          </span>
+                                        <ul id="setting-menu" class="menu absolute top-7  right-0  w-40 text-center  bg-white shadow-md hide">
+                                            <li>
+                                                <form action="/report/<%= story._id %>" method="POST">
+                                                    <button class="hover:bg-red-600 hover:text-white py-2 w-full transition ease-in duration-300">  Mark as spam</button></form>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <!-- https://images.unsplash.com/photo-1663179975117-b6b1a6dcd951?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60 -->
 
                                 <img src="image/<%= story.imgname %>" alt="" class="w-full object-cover object-center md:h-40 lg:h-64">
                                 <div class="h-4/5 p-6 hover:bg-indigo-700 hover:text-white transition duration-200 ease-in">
                                     <h3 class="mb-1 font-medium text-indigo-400">
-                                        <%= formatDate(story.createdAt,'MMMM Do YYYY') %>
+                                        <%= formatDate(story.createdAt,'LL') %>
                                     </h3>
                                     <h1 class="mb-2 font-semibold text-xl">
                                         <%= story.title %>
@@ -81,6 +93,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                                   </svg>
                                 </a>
+
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +153,49 @@
             const navBar = document.getElementById('navbar');
             const body = document.getElementById('body');
             const footer = document.getElementById('footer');
+            const setting = document.querySelectorAll('#setting');
+            const settingMenu = document.querySelectorAll('#setting-menu');
+            for (let i in setting) {
+                setting[i].onclick = function() {
+                    showMenu(i);
+                    // settingMenu[i].classList.add('hide');
+                }
+            }
 
+            function showMenu(i) {
+                settingMenu[i].classList.toggle('hide');
+                settingMenu[i].classList.toggle('show');
+                document.addEventListener('click', (e) => {
+                    console.log(e);
+                    console.log(e.target.tagName);
+                    if (e.target.tagName != 'svg') {
+                        settingMenu[i].classList.remove('show');
+                        settingMenu[i].classList.add('hide');
+                    }
+                })
+            }
+
+            // const setting = document.getElementById('setting');
+            // const settingBtn = document.getElementById('setting-btn');
+            // const settingMenu = document.getElementById('setting-menu');
+
+            // settingBtn.addEventListener('click', () => {
+            //     setting.classList.toggle('show');
+            //     settingMenu.classList.toggle('hide');
+            // });
+
+            // function showMenu() {
+            //     setting.classList.toggle('show');
+            //     settingMenu.classList.toggle('hide');
+            // }
+            // function showMenu() {
+            //     settingBtn.classList.add('show');
+            //     document.addEventListener('click', (e) => {
+            //         if (e.target.tagName != "Span" || e.target != ele) {
+            //             settingBtn.classList.remove("show");
+            //         }
+            //     })
+            // }
 
             openBtn.addEventListener('click', () => {
 
@@ -179,7 +234,6 @@
 
             });
         </script>
-
 
 
         <%- include("./partials/footer.ejs") %>

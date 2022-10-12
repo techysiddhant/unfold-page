@@ -6,9 +6,11 @@ const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
 const router = require('./router/authRouter');
 const storyRouter = require('./router/storyRouter');
+const adminRouter = require('./router/adminRouter');
 const cookieparser = require('cookie-parser');
 const moment = require('moment');
 const methodOverride = require('method-override')
+const Emitter = require('events');
 const { requireAuth, checkUser } = require('./middlewares/authUserVerifyMiddleware');
 //config file
 dotenv.config({ path: './config/config.env' });
@@ -30,9 +32,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 // setup helpers
-
+//event emmiter
+const eventEmitter = new Emitter();
+app.set('eventEmitter', eventEmitter);
 app.locals.formatDate = (date, format) => {
-    return moment(date).utc().format(format)
+    return moment(date).format(format)
 }
 app.locals.trimBody = (str, len) => {
     if (str.length > len && str.length > 0) {
@@ -56,7 +60,24 @@ app.locals.displayName = (str1, str2) => {
 app.get('*', checkUser);
 app.use(router);
 app.use(storyRouter);
+app.use('/admin', adminRouter);
 const PORT = process.env.PORT || 5000
-app.listen(PORT, (req, res) => {
+
+const server = app.listen(PORT, (req, res) => {
     console.log(`Server is Running at PORT: ${PORT}`);
 });
+
+// Socket
+const io = require('socket.io')(server)
+io.on('connection', (socket) => {
+    //join
+    socket.on('join', (admin) => {
+        socket.join(admin);
+    });
+})
+eventEmitter.on('userRegistered', (data) => {
+    io.to('adminRoom').emit('userRegistered', data);
+})
+eventEmitter.on('spamStory', (data) => {
+    io.to('spamRoom').emit('spamStory', data);
+})

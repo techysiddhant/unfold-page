@@ -1,0 +1,77 @@
+<%- include("./partials/header.ejs") %>
+    <title>Untold Story | Admin Home</title>
+    </head>
+
+    <body>
+        <header id="header" class=" w-full h-20 bg-indigo-700 text-white flex justify-between items-center drop-shadow-md px-6 md:px-12">
+            <a href="" class="flex justify-center items-center text-md sm:text-xl md:text-2xl font-semibold">
+                Untold Story
+            </a>
+            <a href="/admin/story" class="hover:scale-125 transition-all ease-in duration-200  ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                </svg>
+            </a>
+            <a href="/admin/logout">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                </svg>
+            </a>
+        </header>
+        <section class="bg-gray-100 min-h-screen">
+            <div class="container mx-auto min-h-screen px-10 ">
+                <div class=" bg-gray-100 p-5">
+                    <h1 class="mb-2 text-2xl md:text-3xl">Registered User Dashboard</h1>
+                    <div class=" overflow-auto rounded-lg shadow md:block">
+
+                        <table class="w-full">
+                            <thead class="border-b-2 border-gray-200 bg-gray-50">
+                                <tr>
+                                    <th class="w-20 px-4 py-3 text-left text-sm font-semibold tracking-wide">No.</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold tracking-wide">Email</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold tracking-wide">UserId</th>
+                                    <!-- <th class="w-24 px-4 py-3 text-left text-sm font-semibold tracking-wide">State</th> -->
+                                    <th class=" px-4 py-3 text-left text-sm font-semibold tracking-wide">createdAt</th>
+                                    <th class=" px-4 py-3 text-left text-sm font-semibold tracking-wide">Block the user</th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-table-body" class="divide-y divide-gray-100  ">
+                                <!-- <tr class="bg-white">
+                                    <td class="whitespace-nowrap p-3 text-sm text-gray-700">
+                                        01
+                                    </td>
+                                    <td id="title" class="whitespace-nowrap p-3 text-sm text-gray-700">
+                                        sidjain8000@gmail.com
+                                    </td>
+
+
+                                    <td class="whitespace-nowrap p-3 text-sm text-gray-700">
+                                        UserId('jdhjsjsdshjhddhdahdhsk')
+                                    </td>
+
+                                    <td class="whitespace-nowrap p-3 text-sm text-gray-700">
+                                        22-09-2022
+                                    </td>
+                                    <td class="whitespace-nowrap p-3 text-sm text-gray-700">
+                                        <form action="/delete" method="POST">
+                                            <button type="submit" class="bg-red-600 text-white py-1 px-2 rounded-md hover:scale-125 transition-all ease-in duration-200">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="/js/moment.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/admin.js"></script>
+    </body>
+
+    </html>

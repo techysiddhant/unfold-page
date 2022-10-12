@@ -8,6 +8,7 @@ const path = require('path');
 const multer = require("multer");
 dotenv.config({ path: './config/config.env' });
 const mongoose = require("mongoose");
+const { setPriority } = require('os');
 // const connectDB = require('../config/db');
 // connectDB();
 const MONGOURI = process.env.MONGO_URI;
@@ -55,6 +56,7 @@ module.exports.addstory_post = async(req, res) => {
         const imgid = req.file.id.toString();
         const imgname = req.file.filename;
         console.log(imgname);
+        // 6338a3f37e4bd7e13d3cf22b
 
         const story = await Story.create({ title: title, storybody: storybody, status: status, user: dtoken.id, imageId: imgid, imgname });
         if (story) {
@@ -125,7 +127,11 @@ module.exports.edit_post = async(req, res) => {
 
 //delete post
 module.exports.delete_post = async(req, res) => {
+    const storyid = req.params.id;
     try {
+        const storyImg = await Story.findById(storyid);
+        console.log(storyImg.imageId);
+        gridfsBucket.delete(mongoose.Types.ObjectId(storyImg.imageId));
         const story = await Story.findByIdAndDelete({ _id: req.params.id });
         res.redirect('/');
     } catch (error) {
@@ -237,4 +243,33 @@ module.exports.userStory_get = async(req, res) => {
     } catch (error) {
 
     }
+}
+
+module.exports.reportStory_post = async(req, res) => {
+    const storyId = req.params.id;
+    try {
+        const token = req.cookies.jwt;
+        let dtoken;
+        if (token) {
+            jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+                dtoken = decodedToken;
+            });
+        }
+        const spam = { spamBy: dtoken.id }
+        const story = await Story.findByIdAndUpdate({ _id: storyId }, { $push: { spam: spam } });
+        const story1 = await Story.findByIdAndUpdate({ _id: storyId }, { markSafe: false });
+        const storyspam = await Story.find({ "$and": [{ "spam.0": { "$exists": true } }, { markSafe: false }] });
+        // console.log(storyspam);
+        //event emit
+        // console.log('Story emit event before');
+        // console.log(story);
+
+        const eventEmitter = req.app.get('eventEmitter');
+        eventEmitter.emit('spamStory', story);
+        res.redirect('/posts');
+    } catch (error) {
+        console.log(error);
+    }
+
+    // res.send('Success');
 }

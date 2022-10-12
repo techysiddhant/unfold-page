@@ -58,8 +58,14 @@
                         emailError.textContent = data.errors.email;
                         passwordError.textContent = data.errors.password;
                     }
-                    if (data.user) {
+                    // console.log(data.user.role);
+                    if (data.user.role === 'customer' && data.user.state !== 'block') {
                         location.assign('/');
+                    } else if (data.user.role != 'customer') {
+                        location.assign('/admin/home');
+                    } else if (data.user.state === 'block') {
+                        emailError.textContent = 'Your account is blocked Contact Admin!';
+                        // location.assign('/login');
                     }
 
                 } catch (error) {
