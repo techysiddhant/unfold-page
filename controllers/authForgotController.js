@@ -11,7 +11,7 @@ module.exports.forgot_get = (req, res) => {
 }
 module.exports.forgot_post = async(req, res) => {
     const { email } = req.body;
-    console.log(email);
+    // console.log(email);
     //make sure user exist or not
     try {
         const user = await User.findOne({ email });
@@ -25,7 +25,7 @@ module.exports.forgot_post = async(req, res) => {
             id: user._id
         }
         const token = jwt.sign(payload, secret, { expiresIn: '15m' });
-        const link = `https://unfoldpage.live/reset-password/${user._id}/${token}`
+        const link = `unfoldpage.live/reset-password/${user._id}/${token}`
             // console.log(link);
 
         // Now Send mail to the user

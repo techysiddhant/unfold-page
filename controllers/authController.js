@@ -45,7 +45,7 @@ module.exports.login_post = async(req, res) => {
             return;
         }
         const token = createToken(user._id);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.cookie('jwt', token, { httpsOnly: true, maxAge: maxAge * 1000 });
         // if (user.role === 'admin') {
         //     return res.redirect('/admin/home');
         // }
@@ -76,7 +76,7 @@ module.exports.signup_post = async(req, res) => {
         const { firstname, lastname, username, email, password, about } = req.body;
         const user = await User.create({ firstname, lastname, username, email, password, about });
         const token = createToken(user._id);
-        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.cookie('jwt', token, { httpsOnly: true, maxAge: maxAge * 1000 });
         //event emit
         const eventEmitter = req.app.get('eventEmitter');
         eventEmitter.emit('userRegistered', user);
