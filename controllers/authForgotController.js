@@ -25,8 +25,8 @@ module.exports.forgot_post = async(req, res) => {
             id: user._id
         }
         const token = jwt.sign(payload, secret, { expiresIn: '15m' });
-        const link = `http://localhost:3000/reset-password/${user._id}/${token}`
-        console.log(link);
+        const link = `http://unfoldpage.live/reset-password/${user._id}/${token}`
+            // console.log(link);
 
         // Now Send mail to the user
         let transporter = nodemailer.createTransport({
