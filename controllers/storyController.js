@@ -9,6 +9,7 @@ const multer = require("multer");
 dotenv.config({ path: './config/config.env' });
 const mongoose = require("mongoose");
 const { setPriority } = require('os');
+const striptags = require('striptags');
 // const connectDB = require('../config/db');
 // connectDB();
 const MONGOURI = process.env.MONGO_URI;
@@ -55,12 +56,11 @@ module.exports.addstory_post = async(req, res) => {
         // console.log(req.file);
         const imgid = req.file.id.toString();
         const imgname = req.file.filename;
-        console.log(imgname);
+        // console.log(imgname);
         // 6338a3f37e4bd7e13d3cf22b
-
-        const story = await Story.create({ title: title, storybody: storybody, status: status, user: dtoken.id, imageId: imgid, imgname });
+        const story = await Story.create({ title: title, storybody: storybody, status: status, user: dtoken.id, imageId: imgid, imgname, markdown: req.body.markdown });
         if (story) {
-
+            console.log(story);
             res.redirect('/posts');
         } else {
             res.send(`<h1>Something Went Wrong Try again</h1>`);
@@ -204,10 +204,14 @@ module.exports.image_get = async(req, res) => {
 // single story
 module.exports.post_get = async(req, res) => {
     try {
-        const post = await Story.findById({ _id: req.params.id });
+        const post = await Story.findById(req.params.id).populate('user').lean();
         console.log(post);
-        const user = await User.findById({ _id: post.user.toString() });
-        res.render('show', { post, user });
+        // const body = post.storybody;
+        // console.log(body);
+        // console.log(JSON.stringify(body));
+        // const user = await User.findById({ _id: post.user.toString() });
+        const storyBody = striptags(post.storybody, [], '\n');
+        res.render('show', { post: post, storyBody });
     } catch (error) {
         console.log(error);
     }
