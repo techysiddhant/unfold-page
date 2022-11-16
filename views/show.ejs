@@ -24,25 +24,25 @@
                         </h1>
 
                         <img src="https://www.unfoldpage.live/image/<%=post.imgname%>" alt="thumbnail" />
-                        <!-- <img src="http://localhost:3000/image/<%=post.imgname%>" alt="thumbnail" /> -->
-                        <!-- <div class="w-96 flex flex-col justify-center items-center h-auto">
-                            <div>
 
-                            </div>
+                        <!-- <div class="p-2 leading-7 ">
+                            <%= storyBody %>
+
                         </div> -->
-                        <p class="p-2 leading-7 ">
-                            <%= stripTag(post.storybody) %>
-                        </p>
+                        <div class="markdown-text p-2 leading-7">
+                            <%- post.sanitizedHtml%>
+                        </div>
+
                     </div>
                     <div class="rounded-sm bg-white shadow-md md:h-80">
 
                         <div class="flex flex-col items-center justify-center my-8">
                             <h1 class="text-2xl py-4 font-semibold">
-                                <%= user.username %>
+                                <%= post.user.username %>
                             </h1>
-                            <button class="h-28 w-28 rounded-full bg-indigo-700 text-5xl text-white text-center"><%= displayName(user.firstname,user.lastname) %></button>
+                            <button class="h-28 w-28 rounded-full bg-indigo-700 text-5xl text-white text-center"><%= displayName(post.user.firstname,post.user.lastname) %></button>
                             <hr class="my-6 w-4/5 text-gray-600 ">
-                            <a href="/user/<%= user._id %>" class="hover:text-blue-600 text-indigo-700 font-semibold uppercase">More From <%= user.username %></a>
+                            <a href="/user/<%= post.user._id %>" class="hover:text-blue-600 text-indigo-700 font-semibold uppercase">More From <%= post.user.username %></a>
                         </div>
 
 

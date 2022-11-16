@@ -11,6 +11,8 @@ const cookieparser = require('cookie-parser');
 const moment = require('moment');
 const methodOverride = require('method-override')
 const Emitter = require('events');
+const stripTags = require('striptags');
+
 const { requireAuth, checkUser } = require('./middlewares/authUserVerifyMiddleware');
 //config file
 dotenv.config({ path: './config/config.env' });
@@ -50,6 +52,10 @@ app.locals.trimBody = (str, len) => {
 }
 app.locals.stripTag = (input) => {
     return input.replace(/<(?:.|\n)*?>/gm, '');
+    // return input.replace(/<[^>]*>/g, ' ').replace(/\s{2,}/g, ' ');
+}
+app.locals.striptag = (input) => {
+    return stripTags(input, [], '\n');
 }
 app.locals.displayName = (str1, str2) => {
     let r1 = str1.slice(0, 1);

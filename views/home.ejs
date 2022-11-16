@@ -60,12 +60,12 @@
 
                             <div class=" h-full  overflow-hidden rounded-lg bg-white shadow-lg shadow-slate-400 p-0">
                                 <div class="px-3 py-1 border-b-2 border-gray-300 border-opacity-60 flex justify-between">
-                                    <span class="text-slate-800">@<%= story.user.username %></span>
+                                    <span class="text-slate-800 font-semibold">@<%= story.user.username %></span>
                                     <div id="setting" class="settings relative">
                                         <span id="setting-btn" class="z-1 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
-                                          </svg>
-                                          </span>
+                                            </svg>
+                                        </span>
                                         <ul id="setting-menu" class="menu absolute top-7  right-0  w-40 text-center  bg-white shadow-md hide">
                                             <li>
                                                 <form action="/report/<%= story._id %>" method="POST">
@@ -85,7 +85,7 @@
                                         <%= story.title %>
                                     </h1>
                                     <p class="leading-relaxed mb-3">
-                                        <%= trimBody(stripTag(story.storybody),60) %>
+                                        <%= trimBody(stripTag(story.sanitizedHtml),60) %>
                                     </p>
                                     <div class="flex items-center">
                                         <a href="/posts/<%= story._id %>" class="text-indigo-400 inline-flex items-center md:mb-2 lg:mb-0">Read More
