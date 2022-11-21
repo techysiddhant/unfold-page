@@ -60,7 +60,7 @@
 
                             <div class=" h-full  overflow-hidden rounded-lg bg-white shadow-lg shadow-slate-400 p-0">
                                 <div class="px-3 py-1 border-b-2 border-gray-300 border-opacity-60 flex justify-between">
-                                    <span class="text-slate-800 font-semibold">@<%= story.user.username %></span>
+                                    <span class="text-slate-800 font-semibold">@ <a href="/user/<%= user._id %>"><%= story.user.username %></a> </span>
                                     <div id="setting" class="settings relative">
                                         <span id="setting-btn" class="z-1 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />

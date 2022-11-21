@@ -241,11 +241,12 @@ module.exports.searchResults_get = async(req, res) => {
 // show single users all story
 module.exports.userStory_get = async(req, res) => {
     const userid = req.params.userid;
+    console.log(userid);
     try {
         const story = await Story.find({ user: userid, status: 'public' }).populate('user').lean();
         res.render('userStory', { stories: story, });
     } catch (error) {
-
+        console.log(error);
     }
 }
 
