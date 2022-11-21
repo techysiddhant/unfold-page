@@ -31,7 +31,7 @@ exports.validateForgotPassword = [
 ]
 exports.forgotvalidation = (req, res, next) => {
     const err̥ors = validationResult(req).array();
-    console.log("🚀 ~ file: authMiddleware.js ~ line 34 ~ err̥ors", err̥ors.length)
+    // console.log("🚀 ~ file: authMiddleware.js ~ line 34 ~ err̥ors", err̥ors.length)
     if (!err̥ors.length) return next();
     return res.status(400).json({ errors: err̥ors, success: 'false' });
 }
